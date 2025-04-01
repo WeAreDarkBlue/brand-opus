@@ -1,0 +1,90 @@
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    @apply font-body text-black-light;
+  }
+
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  html body[data-scroll-locked] {
+    overflow: unset !important;
+    margin-right: 0 !important;
+  }
+
+  ::selection {
+    @apply bg-orange-300 text-white;
+  }
+
+  :focus-visible {
+    @apply outline-none outline-offset-0 outline-purple-300 rounded-xs
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  p:not(:last-child) {
+    margin-bottom: 0.875rem;
+  }
+
+  ol {
+    list-style-type: disc;
+  }
+
+  // Lenis styles
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+
+  // Video sizing
+  :root {
+    --video-width: 100vw;
+    --video-height: 100vh;
+  }
+  @media (min-aspect-ratio: 16/9) {
+    :root {
+      --video-height: 56.25vw;
+    }
+  }
+  @media (max-aspect-ratio: 16/9) {
+    :root {
+      --video-width: 177.78vh;
+    }
+  }
+}
+
+// remove autofill complete styling
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+    background-color: transparent !important;
+}

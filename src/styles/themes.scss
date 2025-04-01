@@ -1,0 +1,53 @@
+/* Dont forget to add any theme classes to the tailwind class whitelist in tailwind.config.js */
+@layer utilities {
+  .theme-dark {
+    --theme--text-color: theme('colors.white');
+    --theme--bg-color: theme('colors.black.DEFAULT');
+    @apply text-theme-text bg-theme-bg;
+  }
+
+  .theme-light {
+    --theme--text-color: theme('colors.black.DEFAULT');
+    --theme--bg-color: theme('colors.grey.100');
+    @apply text-theme-text bg-theme-bg;
+  }
+
+  .theme-primary {
+    --theme--text-color: theme('colors.white');
+    --theme--text-color-light: theme('colors.white');
+    --theme--text-color-dark: theme('colors.white');
+    --theme--background-color: theme('colors.black.DEFAULT');
+    --theme--background-color-light: theme('colors.black.light');
+    --theme--background-color-dark: theme('colors.black.DEFAULT');
+    --theme--accent-color: theme('colors.orange.500');
+    --theme--accent-color-light: theme('colors.orange.300');
+    --theme--accent-color-dark: theme('colors.orange.700');
+    @apply bg-theme-bg text-theme-text;
+  }
+
+  .theme-white {
+    --theme--text-color: theme('colors.black.DEFAULT');
+    --theme--text-color-light: theme('colors.black.DEFAULT');
+    --theme--text-color-dark: theme('colors.black.DEFAULT');
+    --theme--background-color: theme('colors.white');
+    --theme--background-color-light: theme('colors.white');
+    --theme--background-color-dark: theme('colors.white');
+    --theme--accent-color: theme('colors.orange.500');
+    --theme--accent-color-light: theme('colors.orange.300');
+    --theme--accent-color-dark: theme('colors.orange.700');
+    @apply bg-theme-bg text-theme-text;
+  }
+
+  .theme-transparent {
+    --theme--text-color: theme('colors.white');
+    --theme--text-color-light: theme('colors.white');
+    --theme--text-color-dark: theme('colors.black.DEFAULT');
+    --theme--background-color: transparent;
+    --theme--background-color-light: transparent;
+    --theme--background-color-dark: transparent;
+    --theme--accent-color: theme('colors.orange.500');
+    --theme--accent-color-light: theme('colors.orange.300');
+    --theme--accent-color-dark: theme('colors.orange.700');
+    @apply bg-theme-bg text-theme-text;
+  }
+}

@@ -1,0 +1,11 @@
+.form-group {
+  @apply grid grid-cols-10 gap-x-5 border-b border-white/20;
+
+  &__label {
+    @apply col-span-full lg:col-span-3 mb-2 lg:mb-0 lg:pt-3 lg:pb-5;
+  }
+
+  &__input {
+    @apply col-span-full lg:col-span-7;
+  }
+}

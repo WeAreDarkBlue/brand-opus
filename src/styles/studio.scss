@@ -1,0 +1,7 @@
+#sanity {
+  div[data-testid='field-group-root']
+    div[data-ui='TabList']
+    > div:first-of-type {
+    display: none;
+  }
+}

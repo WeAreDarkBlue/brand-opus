@@ -1,0 +1,6 @@
+export { default as ImageWithCopy } from './ImageWithCopy'
+export { default as SingleImage } from './SingleImage'
+export { default as TextColumns } from './TextColumns'
+export { default as ThreeImage } from './ThreeImage'
+export { default as TwoImage } from './TwoImage'
+export { default as Video } from './Video'

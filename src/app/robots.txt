@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /dbhq-admin/
+Disallow: /api/
+Sitemap: https://www.tandpgroup.com/sitemap.xml
