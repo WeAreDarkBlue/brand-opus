@@ -65,7 +65,7 @@ export default async function IndexRoute({
 			<RealViewport />
 			{lenis && <Lenis root options={lenis} />}
 			<Header />
-			<div className="flex min-h-screen flex-col bg-black">
+			<div className="flex min-h-screen flex-col">
 				<main className="flex-grow">{children}</main>
 			</div>
 			<Suspense>
