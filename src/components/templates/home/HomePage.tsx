@@ -31,7 +31,7 @@ export function HomePage({
       <Canvas root />
       <ThemeSetter theme={themeColor} navTheme={navTheme} />
       <div
-        className={`${themeColor === 'dark' ? 'theme-dark' : 'theme-light'} bg-theme-bg text-theme-text`}
+        className={`${themeColor === 'dark' ? 'theme-dark' : 'theme-light'} bg-theme-bg text-theme-text bg-black`}
       >
         {/* Locale Indicator */}
         { process.env.PRE_PRODUCTION === "1" && (
