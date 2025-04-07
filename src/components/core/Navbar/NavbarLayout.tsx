@@ -181,49 +181,6 @@ export default function Navbar({ data }: NavbarProps) {
 		[subMenu, closeSubMenu],
 	);
 
-	useEffect(() => {
-		const showHideNav = (e) => {
-			if (subMenu) return;
-
-			const clampScroll = Math.max(0, e.targetScroll);
-			if (clampScroll === 0) {
-				navEl.current?.classList.remove("-translate-y-full");
-				if (e.targetScroll > 20) {
-					navEl.current?.classList.add("backdrop-blur-lg", bgClass);
-				} else {
-					navEl.current?.classList.remove("backdrop-blur-lg", bgClass);
-				}
-				return;
-			}
-
-			if (e.direction === 1) {
-				navEl.current?.classList.add("-translate-y-full");
-				if (!isBackgroundVisible(navTheme)) {
-					navEl.current?.classList.remove("backdrop-blur-lg", bgClass);
-				}
-			}
-			if (e.direction === -1) {
-				navEl.current?.classList.remove("-translate-y-full");
-				if (!isBackgroundVisible(navTheme)) {
-					if (e.targetScroll > 20) {
-						navEl.current?.classList.add("backdrop-blur-lg", bgClass);
-					} else {
-						navEl.current?.classList.remove("backdrop-blur-lg", bgClass);
-					}
-				}
-			}
-		};
-
-		if (lenis) {
-			lenis.on("scroll", showHideNav);
-		}
-
-		return () => {
-			if (lenis) {
-				lenis.off("scroll", showHideNav);
-			}
-		};
-	}, [subMenu, lenis, navTheme, bgClass]);
 
 	return (
 		<Sheet open={subMenu !== null} modal={false}>
@@ -249,7 +206,7 @@ export default function Navbar({ data }: NavbarProps) {
 								fill={
 									isDarkNav(navTheme) && subMenu === null ? "black" : "white"
 								}
-								className="w-[94px] h-[40px] md:w-[120px] md:h-[50px]"
+								className="w-[94px] h-[40px] md:w-[48px] md:h-[56px]"
 							/>
 						</SanityLink>
 

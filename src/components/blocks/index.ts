@@ -3,3 +3,8 @@ export { default as FullWidthAsset } from "./FullWidthAsset";
 export { default as Quote } from "./Quote";
 export { default as ProjectsList } from "./ProjectsList";
 export { default as Capabilities } from "./Capabilities";
+export { default as IntroText } from "./IntroText";
+export { default as TwoColumnList } from "./TwoColumnList";
+export { default as ScrollingMarquee } from "./ScrollingMarquee";
+export { default as ImageCarousel } from "./ImageCarousel";
+export { default as QuoteCarousel } from "./QuoteCarousel";

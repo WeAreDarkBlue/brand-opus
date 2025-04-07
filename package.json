@@ -32,6 +32,8 @@
 		"@sanity/react-loader": "^1.11.0",
 		"@sanity/ui": "^2.15.10",
 		"@sanity/vision": "^3.81.0",
+		"@splidejs/react-splide": "^0.7.12",
+		"@splidejs/splide-extension-auto-scroll": "^0.5.3",
 		"@svgr/webpack": "^8.1.0",
 		"@theatre/core": "^0.7.2",
 		"@types/three": "^0.175.0",

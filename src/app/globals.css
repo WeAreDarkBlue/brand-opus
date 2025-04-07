@@ -27,6 +27,49 @@
 	h5,
 	h6 {
 		@apply font-heading font-light;
+		letter-spacing: 2px;
+	}
+}
+
+
+.content-block-scrollingMarquee,
+.content-block-quoteCarousel, 
+.content-block-imageCarousel {
+  .mx-auto {
+    .px-5 {
+    padding: 0 !important;
+  }
+  }
+}
+
+.content-block-quoteCarousel{
+	.splide__pagination {
+		bottom: -7rem;
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	.splide__pagination__page {
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background-color: white;
+		border: none;
+		transition: background-color 0.3s, transform 0.3s;
+		opacity: 0.6;
+		border: 2px solid #767676 !important;
+	}
+
+	.splide__pagination__page:hover {
+		opacity: 1;
+	}
+
+	.splide__pagination__page.is-active {
+		background-color: black;
+		border: 2px solid black !important;
+		transform: scale(1);
+		opacity: 1;
 	}
 }
 

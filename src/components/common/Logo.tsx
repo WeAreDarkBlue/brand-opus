@@ -17,9 +17,8 @@ const Logo = ({
 	return (
 		<LogoSVG
 			className={vectorClasses}
-			width="321"
-			height="320"
-			viewBox="0 0 321 320"
+			width="48"
+			height="56"
 			style={{ fill }}
 		/>
 	);
