@@ -89,7 +89,7 @@ const Hero = ({ data }: HeroProps) => {
       
       gsap.to(cursorRef.current, {
         scale: 0,
-        duration: 0.3,
+        duration: 0.2,
         ease: "power2.in",
         onComplete: () => {
           cursorRef.current.style.display = 'none';
@@ -101,7 +101,7 @@ const Hero = ({ data }: HeroProps) => {
   return (
     <div
       ref={heroEl}
-      className={`hero relative w-full aspect-video max-h-screen min-h-[400px] bg-black overflow-hidden origin-top flex flex-col justify-center items-center text-center [--intro-progress:0]`}
+      className={`hero relative w-full aspect-video max-h-screen bg-black overflow-hidden origin-top flex flex-col justify-center items-center text-center [--intro-progress:0]`}
     >
       {background && (
         <>
@@ -122,7 +122,7 @@ const Hero = ({ data }: HeroProps) => {
                 playsinline
                 asset={background}
                 onVideoReady={onVideoReady}
-                className="inset-0 absolute size-full z-0 pointer-events-none opacity-50"
+                className="inset-0 absolute aspect-video z-0 pointer-events-none"
               />
             </div>
           </Link>

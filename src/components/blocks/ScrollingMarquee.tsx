@@ -24,7 +24,7 @@ const ScrollingMarquee = ({ data }: BlockScrollingMarqueeProps) => {
         arrows: false,
         autoWidth: true,
         autoScroll: {
-          speed: 3,
+          speed: 1,
           pauseOnHover: true
         },
       }).mount({ AutoScroll });
@@ -37,7 +37,7 @@ const ScrollingMarquee = ({ data }: BlockScrollingMarqueeProps) => {
 
 	return (
 
-    <div className="splide bg-white py-10" ref={splideRef}>
+    <div className="splide bg-white pt-8 md:pt-16 pb-10" ref={splideRef}>
       <div className="splide__track">
         <ul className="splide__list">
           {data.Items.map((item, i) => (
