@@ -9,6 +9,8 @@
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 
+	--color-secondary: #ff530f;
+
 	--font-body: var(--font-apercu);
 	--font-heading: var(--font-juana);
 }
@@ -25,5 +27,13 @@
 	h5,
 	h6 {
 		@apply font-heading font-light;
+	}
+}
+
+@utility rich-text {
+	p {
+		&:not(:last-child) {
+			@apply mb-4;
+		}
 	}
 }

@@ -21,14 +21,18 @@ const BlockWrapper = ({ data, children }: BlockWrapperProps) => {
 		<section
 			data-type={_type}
 			className={cn(
-				`content-block content-block-${_type} data-[type=projectsGrid]:relative`,
+				`content-block content-block-${_type} data-[type=fullWidthAsset]:py-2`,
 				paddingTop,
 				paddingBottom,
 				blockFullWidth && "relative",
 			)}
 			id={anchorLink || `block-${_key}`}
 		>
-			<Container noPadding={blockFullWidth ?? false}>{children}</Container>
+			<Container
+				noPadding={blockFullWidth || _type === "fullWidthAsset" || false}
+			>
+				{children}
+			</Container>
 		</section>
 	);
 };

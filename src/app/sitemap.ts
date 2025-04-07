@@ -12,9 +12,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		generateStaticSlugs("page"),
 		generateStaticSlugs("project"),
 		generateStaticSlugs("newsPost"),
-		generateStaticSlugs("office"),
-		generateStaticTeamTailorSlugs(),
-		generateStaticJobviteSlugs(),
 	]);
 
 	const routes = slugs.flatMap((slugGroup, i) =>

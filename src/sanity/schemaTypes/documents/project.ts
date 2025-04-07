@@ -38,8 +38,24 @@ export default defineType({
 		}),
 		defineField({
 			group: "page",
+			name: "capabilities",
+			type: "array",
+			of: [
+				{
+					type: "reference",
+					to: [{ name: "capability", type: "capability" }],
+					options: {
+						disableNew: true,
+					},
+				},
+			],
+			validation: (rule) => rule.required().min(1),
+		}),
+		defineField({
+			group: "page",
 			name: "hero",
 			type: "imageVideoAsset",
+			validation: (rule) => rule.required(),
 		}),
 		defineField({
 			group: "page",

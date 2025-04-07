@@ -1,7 +1,6 @@
-import { groq } from 'next-sanity'
+import { defineQuery, groq } from "next-sanity";
 
-import { queryAllLocalisedFields } from './queryLocalisedFields'
-import { blocksStub, linkStub,seoStub } from './stubs'
+import { blocksStub, linkStub, seoStub } from "./stubs";
 
 export const homePageQuery = groq`
   *[_type == "home"][0]{
@@ -20,9 +19,9 @@ export const homePageQuery = groq`
     themeColor,
     navTheme
   }
-`
+`;
 
-export const pagesBySlugQuery = groq`
+export const pagesBySlugQuery = defineQuery(`
   *[_type == "page" && slug.current == $slug][0] {
     _id,
     ${seoStub},
@@ -34,9 +33,9 @@ export const pagesBySlugQuery = groq`
     themeColor,
     navTheme
   }
-`
+`);
 
-export const projectBySlugQuery = groq`
+export const projectBySlugQuery = defineQuery(`
   *[_type == "project" && slug.current == $slug][0] {
     _id,
     ${seoStub},
@@ -56,7 +55,7 @@ export const projectBySlugQuery = groq`
     navTheme,
     preview
   }
-`
+`);
 
 export const newsBySlugQuery = groq`
   *[_type == "newsPost" && slug.current == $slug][0] {
@@ -80,7 +79,7 @@ export const newsBySlugQuery = groq`
       "slug": slug.current,
     }
   }
-`
+`;
 export const officeBySlugQuery = groq`
   *[_type == "office" && slug.current == $slug][0] {
     _id,
@@ -98,7 +97,7 @@ export const officeBySlugQuery = groq`
     },
     address
   }
-`
+`;
 
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
@@ -118,7 +117,7 @@ export const settingsQuery = groq`
     },
     ogImage,
   }
-`
+`;
 
 export const footerQuery = groq`
   *[_type == "footer"][0]{
@@ -152,4 +151,4 @@ export const footerQuery = groq`
       cta { ${linkStub} }
     },
   }
-`
+`;

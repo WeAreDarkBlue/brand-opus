@@ -30,13 +30,13 @@ export function ProjectPage({
 			>
 				<div className="space-y-6">
 					{hero && (
-						<div className="fixed inset-0 h-screen-dvh z-[1]">
+						<div className="relative inset-0 h-screen-dvh z-[1]">
 							<PageHero data={data} />
 						</div>
 					)}
 
 					<div
-						className={`${themeColor === "dark" ? "theme-dark" : "theme-light"} bg-theme-bg !mt-[100dvh] pt-8 lg:pt-15 relative z-[2]`}
+						className={`${themeColor === "dark" ? "theme-dark" : "theme-light"} bg-theme-bg pt-8 lg:pt-15 relative z-[2]`}
 					>
 						{/* Blocks */}
 						{blocks && <BlockRenderer blocks={blocks} country={country} />}

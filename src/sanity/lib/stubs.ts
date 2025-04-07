@@ -1,4 +1,4 @@
-import { groq } from "next-sanity";
+import { defineQuery, groq } from "next-sanity";
 
 export const seoStub = groq`
 seo {
@@ -81,7 +81,7 @@ export const blockOptionsStub = groq`
 
 export const menuItemStub = groq``;
 
-export const blocksStub = groq`
+export const blocksStub = defineQuery(`
   blocks[] {
     ...,
     _type,
@@ -159,9 +159,16 @@ export const blocksStub = groq`
         }
       }
     },
-
+    _type == "projectsList" => {
+      _type,
+      _key,
+      "testing": "fuck you",
+      projects[]-> {
+        ...,
+      }
+    },
   }
-`;
+`);
 
 export const caseStudyBlockStub = `
 ...,

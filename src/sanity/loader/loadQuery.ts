@@ -29,6 +29,7 @@ import type {
 import { isNumeric } from "@/lib/utils";
 import axios from "axios";
 import { getTypeFromSlugs } from "../lib/utils";
+import type { PagesBySlugQueryResult } from "../../../sanity.types";
 
 const serverClient = client.withConfig({
 	token,
@@ -123,7 +124,7 @@ export function loadOffice(slug: string) {
 }
 
 export function loadPage(slug: string) {
-	return loadQuery<PagePayload | null>(
+	return loadQuery<PagesBySlugQueryResult | null>(
 		pagesBySlugQuery,
 		{ slug },
 		{ next: { tags: [`page:${slug}`] } },

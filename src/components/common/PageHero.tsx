@@ -33,7 +33,7 @@ function PageHero({ data, isNews = false }) {
 	};
 
 	return (
-		<section className="relative w-full h-screen-dvh text-white mb-24 lg:mb-32 overflow-hidden pageHero">
+		<section className="relative w-full h-dvh text-white overflow-hidden pageHero">
 			<div className="inset-0 size-full px-5 lg:px-10 py-10 lg:pb-[64px] z-30 relative lg:pt-0">
 				<div
 					className={`block-container h-full justify-between lg:justify-start pt-[136px] z-10 relative ${isNews ? "lg:content-between" : "lg:content-end"}`}
@@ -110,24 +110,12 @@ function PageHero({ data, isNews = false }) {
 							)
 						)}
 					</div>
-					<div
-						className={`col-span-full ${isNews ? "lg:col-span-14" : "lg:col-span-11"} self-end lg:self-start`}
-					>
-						<h1 className="text-3xl lg:text-4xl hero:text-6xl hero:-tracking-[1px] font-medium">
-							{title}
-						</h1>
-						{excerpt && (
-							<p className="lg:font-medium text-sm lg:text-xl mt-6 hero:mt-16 text-white text-opacity-70 leading-[20px] lg:leading-[36px]">
-								{excerpt}
-							</p>
-						)}
-					</div>
 				</div>
 			</div>
 			<div>
 				{showLoader && (
 					<div
-						className="absolute inset-0 flex items-center justify-center"
+						className="absolute inset-0 size-full flex items-center justify-center"
 						ref={loader}
 					>
 						{preview?.previewImage && (

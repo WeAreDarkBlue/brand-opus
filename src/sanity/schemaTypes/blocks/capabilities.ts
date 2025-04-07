@@ -1,34 +1,31 @@
-import { BlockquoteIcon } from "@sanity/icons";
+import { ThListIcon } from "@sanity/icons";
 import { defineField } from "sanity";
 
 import { BlockPreview } from "@/components/studio/blockPreview";
 import blockGroups from "@/sanity/schemaTypes/groups/blockGroups";
 
 export default defineField({
-	title: "Quote",
-	name: "quote",
+	title: "Capabilities",
+	name: "capabilities",
 	type: "object",
-	icon: BlockquoteIcon,
+	icon: ThListIcon,
 	...blockGroups,
 	fields: [
 		defineField({
 			group: "block",
-			name: "quote",
-			type: "text",
-			rows: 3,
+			name: "content",
+			type: "richText",
+			validation: (rule) => rule.required(),
 		}),
 		defineField({
 			group: "block",
-			name: "author",
-			type: "object",
-			fields: [
+			name: "list",
+			type: "array",
+			of: [
 				defineField({
 					name: "name",
 					type: "string",
-				}),
-				defineField({
-					name: "role",
-					type: "string",
+					validation: (rule) => rule.required(),
 				}),
 			],
 		}),
@@ -41,16 +38,9 @@ export default defineField({
 	],
 	components: { preview: BlockPreview },
 	preview: {
-		select: {
-			locale: "blockOptions.limitToLocale",
-			author: "author",
-		},
-		prepare(selection) {
-			const { author } = selection;
-
+		prepare() {
 			return {
-				title: `Quote`,
-				subtitle: author?.name || "",
+				title: "Capabilities",
 			};
 		},
 	},
