@@ -46,6 +46,30 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type TwoColumnList = {
+  _type: "twoColumnList";
+  sectors?: Array<string>;
+  blockOptions?: BlockOptions;
+};
+
+export type ScrollingMarquee = {
+  _type: "scrollingMarquee";
+  Items?: Array<string>;
+  blockOptions?: BlockOptions;
+};
+
+export type QuoteCarousel = {
+  _type: "quoteCarousel";
+  quotes?: Array<{
+    quote?: string;
+    name?: string;
+    job?: string;
+    company?: string;
+    _key: string;
+  }>;
+  blockOptions?: BlockOptions;
+};
+
 export type Quote = {
   _type: "quote";
   quote?: string;
@@ -59,6 +83,88 @@ export type Quote = {
 export type ProjectsList = {
   _type: "projectsList";
   enabled?: boolean;
+  blockOptions?: BlockOptions;
+};
+
+export type IntroText = {
+  _type: "introText";
+  heading?: string;
+  subHeading?: string;
+  blockOptions?: BlockOptions;
+};
+
+export type ImageCarousel = {
+  _type: "imageCarousel";
+  richTextContent?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "large" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      _key: string;
+    } & Link>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    _key: string;
+  } & FullWidthAsset | {
+    _key: string;
+  } & Quote | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    caption?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal";
+      listItem?: never;
+      markDefs?: Array<{
+        href?: string;
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "home";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        } | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "project";
+        };
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    _type: "imageWithCaption";
+    _key: string;
+  } | {
+    html?: string;
+    _type: "html";
+    _key: string;
+  }>;
   blockOptions?: BlockOptions;
 };
 
@@ -538,9 +644,19 @@ export type BlockContent = Array<{
   _key: string;
 } & FullWidthAsset | {
   _key: string;
+} & ImageCarousel | {
+  _key: string;
+} & IntroText | {
+  _key: string;
 } & ProjectsList | {
   _key: string;
-} & Quote>;
+} & Quote | {
+  _key: string;
+} & QuoteCarousel | {
+  _key: string;
+} & ScrollingMarquee | {
+  _key: string;
+} & TwoColumnList>;
 
 export type NewsPost = {
   _id: string;
@@ -984,7 +1100,7 @@ export type ImageVideoAsset = {
   imageMobile?: StandardImageNoCaption;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | Quote | ProjectsList | FullWidthAsset | Capabilities | BasicContent | VideoAsset | ThemeColor | StandardImageWithMobile | StandardImage | SocialLink | RichTextLite | RichText | NavTheme | LinkGroup | ImageVideoAssetLocal | Contact | BlockOptions | BlockContent | NewsPost | Capability | Author | Settings | Footer | Link | Home | Page | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityImageMetadata | Seo | Category | SanityFileAsset | SanityAssetSourceData | StandardImageNoCaption | Slug | ImageVideoAsset;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | TwoColumnList | ScrollingMarquee | QuoteCarousel | Quote | ProjectsList | IntroText | ImageCarousel | FullWidthAsset | Capabilities | BasicContent | VideoAsset | ThemeColor | StandardImageWithMobile | StandardImage | SocialLink | RichTextLite | RichText | NavTheme | LinkGroup | ImageVideoAssetLocal | Contact | BlockOptions | BlockContent | NewsPost | Capability | Author | Settings | Footer | Link | Home | Page | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityImageMetadata | Seo | Category | SanityFileAsset | SanityAssetSourceData | StandardImageNoCaption | Slug | ImageVideoAsset;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: homePageQuery
@@ -1174,6 +1290,92 @@ export type HomePageQueryResult = {
     caseStudies: null;
   } | {
     _key: string;
+    _type: "imageCarousel";
+    richTextContent?: Array<{
+      _key: string;
+    } & FullWidthAsset | {
+      _key: string;
+    } & Quote | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "large" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        _key: string;
+      } & Link>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      html?: string;
+      _type: "html";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      caption?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: Array<{
+          href?: string;
+          reference?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "home";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "page";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "project";
+          };
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      _type: "imageWithCaption";
+      _key: string;
+    }>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "introText";
+    heading?: string;
+    subHeading?: string;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
     _type: "projectsList";
     enabled?: boolean;
     blockOptions?: BlockOptions;
@@ -1190,6 +1392,36 @@ export type HomePageQueryResult = {
       name?: string;
       role?: string;
     };
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "quoteCarousel";
+    quotes?: Array<{
+      quote?: string;
+      name?: string;
+      job?: string;
+      company?: string;
+      _key: string;
+    }>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "scrollingMarquee";
+    Items?: Array<string>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "twoColumnList";
+    sectors?: Array<string>;
     blockOptions?: BlockOptions;
     spotColor: null;
     themeColor: ThemeColor | null;
@@ -1392,6 +1624,92 @@ export type PagesBySlugQueryResult = {
     caseStudies: null;
   } | {
     _key: string;
+    _type: "imageCarousel";
+    richTextContent?: Array<{
+      _key: string;
+    } & FullWidthAsset | {
+      _key: string;
+    } & Quote | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "large" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        _key: string;
+      } & Link>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      html?: string;
+      _type: "html";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      caption?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: Array<{
+          href?: string;
+          reference?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "home";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "page";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "project";
+          };
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      _type: "imageWithCaption";
+      _key: string;
+    }>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "introText";
+    heading?: string;
+    subHeading?: string;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
     _type: "projectsList";
     enabled?: boolean;
     blockOptions?: BlockOptions;
@@ -1408,6 +1726,36 @@ export type PagesBySlugQueryResult = {
       name?: string;
       role?: string;
     };
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "quoteCarousel";
+    quotes?: Array<{
+      quote?: string;
+      name?: string;
+      job?: string;
+      company?: string;
+      _key: string;
+    }>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "scrollingMarquee";
+    Items?: Array<string>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "twoColumnList";
+    sectors?: Array<string>;
     blockOptions?: BlockOptions;
     spotColor: null;
     themeColor: ThemeColor | null;
@@ -1606,6 +1954,92 @@ export type ProjectBySlugQueryResult = {
     caseStudies: null;
   } | {
     _key: string;
+    _type: "imageCarousel";
+    richTextContent?: Array<{
+      _key: string;
+    } & FullWidthAsset | {
+      _key: string;
+    } & Quote | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "large" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        _key: string;
+      } & Link>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      html?: string;
+      _type: "html";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      caption?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: Array<{
+          href?: string;
+          reference?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "home";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "page";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "project";
+          };
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      _type: "imageWithCaption";
+      _key: string;
+    }>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "introText";
+    heading?: string;
+    subHeading?: string;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
     _type: "projectsList";
     enabled?: boolean;
     blockOptions?: BlockOptions;
@@ -1622,6 +2056,36 @@ export type ProjectBySlugQueryResult = {
       name?: string;
       role?: string;
     };
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "quoteCarousel";
+    quotes?: Array<{
+      quote?: string;
+      name?: string;
+      job?: string;
+      company?: string;
+      _key: string;
+    }>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "scrollingMarquee";
+    Items?: Array<string>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "twoColumnList";
+    sectors?: Array<string>;
     blockOptions?: BlockOptions;
     spotColor: null;
     themeColor: ThemeColor | null;

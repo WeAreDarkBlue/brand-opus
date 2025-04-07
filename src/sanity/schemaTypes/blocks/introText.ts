@@ -23,7 +23,13 @@ export default defineField({
 			title: "SubHeading",
 			name: "subHeading",
 			type: "text",
-			rows: 1,
+			rows: 3,
+		}),
+		defineField({
+			name: "dark",
+			type: "boolean",
+			group: "options",
+			initialValue: false,
 		}),
 		defineField({
 			title: "Block Options",
