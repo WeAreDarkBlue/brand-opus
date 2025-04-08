@@ -65,6 +65,18 @@ export default defineType({
 			type: "richTextLite",
 		}),
 		defineField({
+			group: "page",
+			name: "gmaps",
+			title: "Google maps link",
+			type: "string"
+		}),
+		defineField({
+			group: "page",
+			name: "phone",
+			title: "Phone number",
+			type: "string"
+		}),
+		defineField({
 			group: "blocks",
 			name: "blocks",
 			type: "blockContent",

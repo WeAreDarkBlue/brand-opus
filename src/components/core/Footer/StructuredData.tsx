@@ -3,7 +3,7 @@ import { toPlainText } from "@portabletext/react";
 import { getSocialLinkData } from "@/lib/utils";
 import Script from "next/script";
 
-const StructuredData = async ({ footerData }) => {
+const StructuredData = ({ footerData }) => {
 	const { contacts, address, socialLinks } = footerData || {};
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 	const structuredData = [

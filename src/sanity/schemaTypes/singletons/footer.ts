@@ -24,6 +24,10 @@ export default defineType({
       title: 'Social Media',
     },
     {
+      name: 'join',
+      title: 'Join',
+    },
+    {
       name: 'cta',
       title: 'CTA',
     },
@@ -83,6 +87,13 @@ export default defineType({
       type: 'array',
       of: [{ type: 'socialLink' }],
       group: 'social',
+    }),
+    defineField({
+        title: 'Internal link',
+        name: 'reference',
+        type: 'reference',
+        to: [{ type: 'page' }],
+      group: 'join',
     }),
     defineField({
       name: 'cta',

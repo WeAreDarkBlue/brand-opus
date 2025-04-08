@@ -90,6 +90,7 @@ export type IntroText = {
   _type: "introText";
   heading?: string;
   subHeading?: string;
+  dark?: boolean;
   blockOptions?: BlockOptions;
 };
 
@@ -658,6 +659,26 @@ export type BlockContent = Array<{
   _key: string;
 } & TwoColumnList>;
 
+export type Office = {
+  _id: string;
+  _type: "office";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  city: string;
+  region: "EMEA" | "APAC" | "Americas";
+  slug: Slug;
+  contacts?: Array<{
+    _key: string;
+  } & Contact>;
+  address?: RichTextLite;
+  gmaps?: string;
+  phone?: string;
+  blocks?: BlockContent;
+  seo?: Seo;
+  themeColor?: ThemeColor;
+};
+
 export type NewsPost = {
   _id: string;
   _type: "newsPost";
@@ -813,6 +834,12 @@ export type Footer = {
   socialLinks?: Array<{
     _key: string;
   } & SocialLink>;
+  reference?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "page";
+  };
   cta?: {
     title?: string;
     cta?: Link;
@@ -1100,7 +1127,7 @@ export type ImageVideoAsset = {
   imageMobile?: StandardImageNoCaption;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | TwoColumnList | ScrollingMarquee | QuoteCarousel | Quote | ProjectsList | IntroText | ImageCarousel | FullWidthAsset | Capabilities | BasicContent | VideoAsset | ThemeColor | StandardImageWithMobile | StandardImage | SocialLink | RichTextLite | RichText | NavTheme | LinkGroup | ImageVideoAssetLocal | Contact | BlockOptions | BlockContent | NewsPost | Capability | Author | Settings | Footer | Link | Home | Page | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityImageMetadata | Seo | Category | SanityFileAsset | SanityAssetSourceData | StandardImageNoCaption | Slug | ImageVideoAsset;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | TwoColumnList | ScrollingMarquee | QuoteCarousel | Quote | ProjectsList | IntroText | ImageCarousel | FullWidthAsset | Capabilities | BasicContent | VideoAsset | ThemeColor | StandardImageWithMobile | StandardImage | SocialLink | RichTextLite | RichText | NavTheme | LinkGroup | ImageVideoAssetLocal | Contact | BlockOptions | BlockContent | Office | NewsPost | Capability | Author | Settings | Footer | Link | Home | Page | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityImageMetadata | Seo | Category | SanityFileAsset | SanityAssetSourceData | StandardImageNoCaption | Slug | ImageVideoAsset;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: homePageQuery
@@ -1370,6 +1397,7 @@ export type HomePageQueryResult = {
     _type: "introText";
     heading?: string;
     subHeading?: string;
+    dark?: boolean;
     blockOptions?: BlockOptions;
     spotColor: null;
     themeColor: ThemeColor | null;
@@ -1704,6 +1732,7 @@ export type PagesBySlugQueryResult = {
     _type: "introText";
     heading?: string;
     subHeading?: string;
+    dark?: boolean;
     blockOptions?: BlockOptions;
     spotColor: null;
     themeColor: ThemeColor | null;
@@ -2034,6 +2063,7 @@ export type ProjectBySlugQueryResult = {
     _type: "introText";
     heading?: string;
     subHeading?: string;
+    dark?: boolean;
     blockOptions?: BlockOptions;
     spotColor: null;
     themeColor: ThemeColor | null;
@@ -2349,7 +2379,340 @@ export type NewsBySlugQueryResult = {
 } | null;
 // Variable: officeBySlugQuery
 // Query: *[_type == "office" && slug.current == $slug][0] {    _id,    seo {  title,  description,  ogImage,  keywords,},      blocks[] {    ...,    _type,    "spotColor": ^.spotColor.hex,    "themeColor": ^.themeColor,    "caseStudies": @.projects[]->,    cta != null => { cta { _key,_type,appendLink,jumpLink,color != null => { color },newTab != null => { newTab },title != null => { title },category != null => { category },link != null => { link },page != null => {  page-> {    _type,    _id,    "slug": slug.current,    "title": title  }} } },    link != null => { link { _key,_type,appendLink,jumpLink,color != null => { color },newTab != null => { newTab },title != null => { title },category != null => { category },link != null => { link },page != null => {  page-> {    _type,    _id,    "slug": slug.current,    "title": title  }} } },    richTextContent != null => richTextContent[] {      ...,_type == "image" => { _type,alt,asset->{  _id,  metadata {    lqip  }} },markDefs[]{  ...,  _type == "link" => {    "slug": @.reference->slug.current,    "link": {      href != null => {        "link": href      },      button,      reference != null => {        "page": reference->{          _type,          _id,          "button": ^.button,          "slug": slug.current,          category != null => {            "category": category->slug.current          }        }      }    }  }}    },    _type == "stackList" => {      items[] {        _key,        title,        richTextContent,        image,        link {          _key,_type,appendLink,jumpLink,color != null => { color },newTab != null => { newTab },title != null => { title },category != null => { category },link != null => { link },page != null => {  page-> {    _type,    _id,    "slug": slug.current,    "title": title  }}        }      }    },    // TODO: remove below completely when office data filled in in sanity    _type == "officeList" => {      officeList[] {        _key,        title,        officeRef-> {          _id,          "slug": slug.current,          city,          region        }      }    },    _type == "newsArchive" => {      title,      "posts": *[_type == "newsPost"] | order(date desc) [0...10] {        _id,        seo {  title,  description,  ogImage,  keywords,},        hero,        "slug": slug.current,        title,        categories[]->,        themeColor,        "spotColor": spotColor.hex,        previewImage,        author->,        content,        date,      }    },    _type == "realityCheckQuiz" => {      ...,      "quiz": *[_type == "quiz"][0]    },    _type == "videoHero" => {      "video": {        "selected": "video",        "videoDesktop": video.videoDesktop.asset->url,        "videoMobile": video.videoMobile.asset->url,      }    },    _type == "scrollableCaseStudies" => {      "caseStudies": caseStudies[]{        sectionTitle,        title,        description,        cta { _key,_type,appendLink,jumpLink,color != null => { color },newTab != null => { newTab },title != null => { title },category != null => { category },link != null => { link },page != null => {  page-> {    _type,    _id,    "slug": slug.current,    "title": title  }} },        assets[],        bulletPoints[] {          point[] {            ...,_type == "image" => { _type,alt,asset->{  _id,  metadata {    lqip  }} },markDefs[]{  ...,  _type == "link" => {    "slug": @.reference->slug.current,    "link": {      href != null => {        "link": href      },      button,      reference != null => {        "page": reference->{          _type,          _id,          "button": ^.button,          "slug": slug.current,          category != null => {            "category": category->slug.current          }        }      }    }  }}          }        }      }    },    _type == "projectsList" => {      _type,      _key,      "testing": "fuck you",      projects[]-> {        ...,      }    },  },    "slug": slug.current,    city,    region,    themeColor,    navTheme,    contacts[]{      _key,      title,      email,    },    address  }
-export type OfficeBySlugQueryResult = null;
+export type OfficeBySlugQueryResult = {
+  _id: string;
+  seo: {
+    title: string;
+    description: string | null;
+    ogImage: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    keywords: null;
+  } | null;
+  blocks: Array<{
+    _key: string;
+    _type: "basicContent";
+    richTextContent?: Array<{
+      _key: string;
+    } & FullWidthAsset | {
+      _key: string;
+    } & Quote | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "large" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        _key: string;
+      } & Link>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      html?: string;
+      _type: "html";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      caption?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: Array<{
+          href?: string;
+          reference?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "home";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "page";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "project";
+          };
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      _type: "imageWithCaption";
+      _key: string;
+    }>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "capabilities";
+    content: Array<{
+      _key: string;
+    } & FullWidthAsset | {
+      _key: string;
+    } & Quote | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "large" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        _key: string;
+      } & Link>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      html?: string;
+      _type: "html";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      caption?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: Array<{
+          href?: string;
+          reference?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "home";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "page";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "project";
+          };
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      _type: "imageWithCaption";
+      _key: string;
+    }>;
+    list?: Array<string>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "fullWidthAsset";
+    asset?: ImageVideoAsset;
+    description?: string;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "imageCarousel";
+    richTextContent?: Array<{
+      _key: string;
+    } & FullWidthAsset | {
+      _key: string;
+    } & Quote | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "large" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        _key: string;
+      } & Link>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      html?: string;
+      _type: "html";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt: string;
+      caption?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: Array<{
+          href?: string;
+          reference?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "home";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "page";
+          } | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "project";
+          };
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      _type: "imageWithCaption";
+      _key: string;
+    }>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "introText";
+    heading?: string;
+    subHeading?: string;
+    dark?: boolean;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "projectsList";
+    enabled?: boolean;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+    testing: "fuck you";
+    projects: null;
+  } | {
+    _key: string;
+    _type: "quote";
+    quote?: string;
+    author?: {
+      name?: string;
+      role?: string;
+    };
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "quoteCarousel";
+    quotes?: Array<{
+      quote?: string;
+      name?: string;
+      job?: string;
+      company?: string;
+      _key: string;
+    }>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "scrollingMarquee";
+    Items?: Array<string>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    _key: string;
+    _type: "twoColumnList";
+    sectors?: Array<string>;
+    blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  }> | null;
+  slug: string;
+  city: string;
+  region: "Americas" | "APAC" | "EMEA";
+  themeColor: ThemeColor | null;
+  navTheme: null;
+  contacts: Array<{
+    _key: string;
+    title: string | null;
+    email: string;
+  }> | null;
+  address: RichTextLite | null;
+} | null;
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0]{    footer,    logo != null => { logo },    menuItems[]{      ...,      title,      submenu[]{        _key,        title,        bgType,        image,        video,        link { _key,_type,appendLink,jumpLink,color != null => { color },newTab != null => { newTab },title != null => { title },category != null => { category },link != null => { link },page != null => {  page-> {    _type,    _id,    "slug": slug.current,    "title": title  }} }      }    },    ogImage,  }
 export type SettingsQueryResult = {
