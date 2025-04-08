@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type {
 	Project as ProjectType,
-	ProjectsList as ProjectListType,
+	Capability as CapabilityType,
 } from "../../../sanity.types";
 import RenderImage from "../common/RenderImage";
 import { useEffect, useState } from "react";
@@ -12,22 +12,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { groq } from "next-sanity";
 import { client } from "@/sanity/lib/client";
 
-interface Props extends Omit<ProjectListType, "projects"> {
-	projects?: (ProjectType & { _ref: string; _key: string })[];
-}
-
-// Type for Capability
-interface Capability {
-	_id: string;
-	title: string;
-	slug: {
-		current: string;
-	};
-}
-
-function ProjectsList({ data }: { data: Props }) {
+function ProjectsList() {
 	const [projects, setProjects] = useState<ProjectType[]>([]);
-	const [capabilities, setCapabilities] = useState<Capability[]>([]);
+	const [capabilities, setCapabilities] = useState<CapabilityType[]>([]);
 	const [selectedCapability, setSelectedCapability] = useState<string | null>(
 		null,
 	);
@@ -52,7 +39,7 @@ function ProjectsList({ data }: { data: Props }) {
 					}`,
 				);
 
-				const capabilitiesData = await client.fetch<Capability[]>(
+				const capabilitiesData = await client.fetch<CapabilityType[]>(
 					groq`*[_type == "capability"] | order(title asc){
 						_id,
 						title,
