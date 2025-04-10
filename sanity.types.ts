@@ -748,6 +748,17 @@ export type Settings = {
   newsArchive?: Seo;
 };
 
+export type Header = {
+  _id: string;
+  _type: "header";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  headerNavigation?: Array<{
+    _key: string;
+  } & LinkGroup>;
+};
+
 export type Footer = {
   _id: string;
   _type: "footer";
@@ -1064,7 +1075,7 @@ export type ImageVideoAsset = {
   imageMobile?: StandardImageNoCaption;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | TwoColumnList | ScrollingMarquee | QuoteCarousel | Quote | ProjectsList | IntroText | ImageCarousel | FullWidthAsset | Capabilities | BasicContent | VideoAsset | ThemeColor | StandardImageWithMobile | StandardImage | SocialLink | RichTextLite | RichText | NavTheme | LinkGroup | ImageVideoAssetLocal | Contact | BlockOptions | BlockContent | Office | NewsPost | Capability | Author | Settings | Footer | Link | Home | Page | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityImageMetadata | Seo | Category | SanityFileAsset | SanityAssetSourceData | StandardImageNoCaption | Slug | ImageVideoAsset;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | TwoColumnList | ScrollingMarquee | QuoteCarousel | Quote | ProjectsList | IntroText | ImageCarousel | FullWidthAsset | Capabilities | BasicContent | VideoAsset | ThemeColor | StandardImageWithMobile | StandardImage | SocialLink | RichTextLite | RichText | NavTheme | LinkGroup | ImageVideoAssetLocal | Contact | BlockOptions | BlockContent | Office | NewsPost | Capability | Author | Settings | Header | Footer | Link | Home | Page | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityImageMetadata | Seo | Category | SanityFileAsset | SanityAssetSourceData | StandardImageNoCaption | Slug | ImageVideoAsset;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: homePageQuery
