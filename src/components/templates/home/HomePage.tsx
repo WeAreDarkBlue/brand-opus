@@ -1,15 +1,13 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
 
-import SalesforceFormController from '@/components/common/Salesforce/FormController'
 import BlockRenderer from '@/components/core/BlockRenderer/BlockRenderer'
 import type { HomePagePayload } from '@/types'
-
+import TypeLogoSVG from "@/lib/images/typeLogo.svg";
 import Intro from './Intro'
 import Hero from './Hero'
 import { Canvas } from '@/lib/webgl/components/canvas'
 import ThemeSetter from '@/components/core/ThemeSetter'
 import {stegaClean} from "@sanity/client/stega"
-import { getLocaleEmoji } from '@/lib/utils'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -33,12 +31,11 @@ export function HomePage({
       <div
         className={`${themeColor === 'dark' ? 'theme-dark' : 'theme-light'} bg-theme-bg text-theme-text bg-black`}
       >
-        {/* Locale Indicator */}
-        { process.env.PRE_PRODUCTION === "1" && (
-          <div className="absolute top-10 right-10 z-50 text-3xl pointer-events-none">
-            { getLocaleEmoji(country) }
-          </div>
-        )}
+        {/* static part of logo */}
+        <div className="absolute top-[55px] left-[122px] z-50 text-3xl pointer-events-none">
+          <TypeLogoSVG className="w-[153px]" />
+        </div>
+        
         {/* Hero */}
         { hero && <Hero data={hero} /> }
 

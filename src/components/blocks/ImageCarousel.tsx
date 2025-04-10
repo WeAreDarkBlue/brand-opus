@@ -2,30 +2,31 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
-import { classNames, getBlockWidthClasses } from "@/lib/frontend-utils";
-
+import RenderImage from "../common/RenderImage";
+import Link from "next/link";
+import { gsap } from 'gsap';
+import HoverCursor from '../common/HoverCursor';
 
 // Define the BlockImageCarouselProps type
 interface BlockImageCarouselProps {
   data: {
-	slides: {
-	  id: number;
-	  label: string;
-	  img: string;
-	}[];
+  caseStudies: {
+    title: string;
+    hero: any[];
+    slug: {
+      current: string;
+    };
+  }[];
   };
 }
 
-const slides = [
-  { id: 0, label: 'jello', img: './demo/jello-thumbnail.jpg' },
-  { id: 1, label: 'jello', img: './demo/jello-thumbnail.jpg' },
-  { id: 2, label: 'jello', img: './demo/jello-thumbnail.jpg' },
-  { id: 3, label: 'jello', img: './demo/jello-thumbnail.jpg' },
-];
+const cursorRadius = 50;
+const cursorDiameter = cursorRadius * 2;
 
 const ImageCarousel = ({ data }: BlockImageCarouselProps) => {
   const splideRef = useRef<{ splide: { on: Function; off: Function; index: number } } | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const cursorRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const splide = splideRef.current?.splide;
@@ -40,46 +41,111 @@ const ImageCarousel = ({ data }: BlockImageCarouselProps) => {
     };
   }, []);
 
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (cursorRef.current) {
+      const x = e.clientX - cursorDiameter / 2;
+      const y = e.clientY - cursorDiameter / 2;
+      cursorRef.current.style.left = `${x}px`;
+      cursorRef.current.style.top = `${y}px`;
+    }
+  };
+
+  const handleMouseEnter = (e: React.MouseEvent) => {
+    if (cursorRef.current) {
+      const x = e.clientX - cursorDiameter / 2;
+      const y = e.clientY - cursorDiameter / 2;
+      cursorRef.current.style.left = `${x}px`;
+      cursorRef.current.style.top = `${y}px`;
+      cursorRef.current.style.display = 'flex';
+
+      // Animations and cursor effects
+      gsap.fromTo(
+        cursorRef.current,
+        { scale: 0 },
+        { scale: 1, duration: 0.5, ease: 'power2.out' }
+      );
+    }
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent) => {
+    if (cursorRef.current) {
+      const x = e.clientX - cursorDiameter / 2;
+      const y = e.clientY - cursorDiameter / 2;
+      cursorRef.current.style.left = `${x}px`;
+      cursorRef.current.style.top = `${y}px`;
+
+      gsap.to(cursorRef.current, {
+        scale: 0,
+        duration: 0.2,
+        ease: 'power2.in',
+        onComplete: () => {
+          if (cursorRef.current) {
+            cursorRef.current.style.display = 'none';
+          }
+        },
+      });
+    }
+  };
+
   return (
-    <Splide
-      ref={splideRef}
-      options={{
-        type: 'loop',
-        perPage: 1.5,
-        focus: 'center',
-        gap: '3rem',
-        width: '100vw',
-        minHeight: '640px',
-        padding: '10vw',
-        pagination: false,
-        arrows: false,
-      }}
-      style={{ width: '100vw', height: 'auto' }}
-    >
-      {slides.map((slide, index) => {
-        return (
-          <SplideSlide key={slide.id}>
-            <div
-              style={{
-                width: '100%',
-								aspectRatio: '16 / 9',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundImage: slide.img ? `url(${slide.img})` : 'none',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                color: 'white',
-                fontSize: '8vw',
-                fontWeight: 'bold',
-              }}
-            >
-              {!slide.img && slide.label}
-            </div>
-          </SplideSlide>
-        );
-      })}
-    </Splide>
+    <>
+      <HoverCursor cursorDiameter={cursorDiameter} text={'View Project'} ref={cursorRef} />
+      <Splide
+        ref={splideRef}
+        options={{
+          type: 'loop',
+          perPage: 1.5,
+          focus: 'center',
+          gap: '3rem',
+          width: '100vw',
+          minHeight: '640px',
+          padding: '10vw',
+          pagination: false,
+          arrows: false,
+          breakpoints: {
+            768: {
+              gap: '1rem',
+              perPage: 1.25,
+            },
+          },
+        }}
+        style={{ width: '100vw', height: 'auto' }}
+      >
+        {data.caseStudies.map((project, i) => {
+          return (
+            <SplideSlide key={i}>
+              <Link href={`/work/${project.slug.current}`}>
+                <div
+                  onMouseEnter={handleMouseEnter}
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={handleMouseLeave}
+                  style={{
+                    width: '100%',
+                    aspectRatio: '16 / 9',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    color: 'white',
+                    fontSize: '8vw',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  <RenderImage
+                    width={1320}
+                    height={715}
+                    image={project.hero?.imageDesktop}
+                    alt={project.title}
+                    fill={true}
+                  />
+                </div>
+              </Link>
+            </SplideSlide>
+          );
+        })}
+      </Splide>
+    </>
   );
 };
 

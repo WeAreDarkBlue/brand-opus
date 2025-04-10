@@ -13,13 +13,16 @@ interface BlockQuoteCarouselProps {
 			width: string;
 		};
 		richTextContent: string;
+		quotes: {
+			quote: string;
+			name: string;
+			job: string;
+			company: string;
+		}[];
 	};
 }
 
 const QuoteCarousel = ({ data }: BlockQuoteCarouselProps) => {
-	const { textAlignment, blockOptions, richTextContent } = data;
-	const { width } = blockOptions;
-	console.log(data)
 	return (
 		<div className="bg-white text-black pt-16 md:pt-32 pb-16 md:pb-64 rounded-b-3xl">
       <Splide options={{

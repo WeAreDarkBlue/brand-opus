@@ -9,7 +9,7 @@ interface BlockIntroTextProps {
 
 const IntroText = ({ data }: BlockIntroTextProps) => {
 	return (
-		<div className="container mx-auto xl:max-w-[1320px] text-[42px] md:text-[68px] lg:text-[67px] leading-[51px] md:leading-[80px] lg:leading-[1.2] py-5 md:py-10">
+		<div className="container mx-auto xl:max-w-[1320px] text-[42px] md:text-[68px] lg:text-[67px] xl:text-[90px] leading-[51px] md:leading-[80px] lg:leading-[1.2] xl:leading-[108px] py-5 md:py-10 px-5">
 			<p
 				className={`font-heading font-light ${data.dark ? "text-black" : "text-white"}`}
 			>

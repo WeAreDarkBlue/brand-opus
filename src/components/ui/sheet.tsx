@@ -2,7 +2,9 @@
 
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { type VariantProps, cva } from "class-variance-authority";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+
+
 
 import { cn } from "@/lib/utils";
 
@@ -52,21 +54,40 @@ interface SheetContentProps
 	extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
 		VariantProps<typeof sheetVariants> {}
 
-const SheetContent = React.forwardRef<
-	React.ElementRef<typeof SheetPrimitive.Content>,
-	SheetContentProps
->(({ side = "right", className, children, ...props }, ref) => (
-	<SheetPortal>
-		<SheetOverlay />
-		<SheetPrimitive.Content
-			ref={ref}
-			className={cn(sheetVariants({ side }), className)}
-			{...props}
-		>
-			{children}
-		</SheetPrimitive.Content>
-	</SheetPortal>
-));
+		const SheetContent = React.forwardRef<
+		React.ElementRef<typeof SheetPrimitive.Content>,
+		SheetContentProps
+	>(({ side = "left", className, children, ...props }, ref) => {
+		const [mounted, setMounted] = useState(false);
+	
+		// Trigger mounted state change after initial render
+		useEffect(() => {
+			setMounted(true);
+		}, []);
+	
+		return (
+			<SheetPortal>
+				<SheetOverlay />
+				<SheetPrimitive.Content
+					ref={ref}
+					className={cn(
+						sheetVariants({ side }),
+						"transition-all duration-300 ease-in-out", // Add transition
+						// Slide and fade from left when state is open
+						"data-[state=open]:translate-x-0 data-[state=open]:opacity-100",
+						// Slide and fade out to left when state is closed
+						"data-[state=closed]:translate-x-[-100%] data-[state=closed]:opacity-0",
+						// Apply animation after the first render
+						mounted ? "opacity-100" : "opacity-0 translate-x-[-100%]",
+						className
+					)}
+					{...props}
+				>
+					{children}
+				</SheetPrimitive.Content>
+			</SheetPortal>
+		);
+	});
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetHeader = ({

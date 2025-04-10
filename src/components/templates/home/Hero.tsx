@@ -1,13 +1,25 @@
 'use client'
 import gsap from 'gsap'
 import { useEffect, useRef, useState } from 'react'
+import { ImageVideoAsset } from '@/types' // Adjust the path to where ImageVideoAsset is defined
 import Link from 'next/link'
 
 import { default as ImageVideoAssetComponent } from '@/components/common/ImageVideoAsset'
 import Loading from '@/components/common/Loading'
+import Cursor from '@/components/common/HoverCursor'
+
+// Define the HeroProps type
+interface HeroProps {
+  data: {
+    background?: {
+      selected?: string;
+      [key: string]: any;
+    };
+  };
+}
 
 const Hero = ({ data }: HeroProps) => {
-  const { title, background } = data || {}
+  const { background } = data || {}
   const heroEl = useRef<HTMLDivElement>(null)
   const isVideoBackground = background?.selected === 'video'
   const [showLoader, setShowLoader] = useState<boolean>(isVideoBackground)
@@ -21,8 +33,8 @@ const Hero = ({ data }: HeroProps) => {
     initializeCursor();
   }
 
-  const cursorRef = useRef(null);
-  const cursorRadius = 60;
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const cursorRadius = 50;
   const cursorDiameter = cursorRadius * 2;
   
   // Initialize cursor in the center of the container
@@ -31,20 +43,17 @@ const Hero = ({ data }: HeroProps) => {
       const rect = backgroundRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
+
       // Position cursor in the center
       cursorRef.current.style.left = `${centerX - cursorRadius}px`;
       cursorRef.current.style.top = `${centerY - cursorRadius}px`;
       cursorRef.current.style.display = 'flex';
-      
+
       // Animate scale from 0 to 1
-      gsap.fromTo(cursorRef.current, 
-        { scale: 0 }, 
-        { scale: 1, duration: 0.8, ease: "power2.out" }
-      );
+      gsap.fromTo(cursorRef.current, { scale: 0 }, { scale: 1, duration: 0.8, ease: 'power2.out' });
     }
   };
-  
+
   // Initialize cursor on mount
   useEffect(() => {
     if (!isVideoBackground && backgroundRef.current) {
@@ -53,47 +62,43 @@ const Hero = ({ data }: HeroProps) => {
     // For video backgrounds, initialization happens in onVideoReady
   }, []);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent) => {
     if (cursorRef.current) {
       const x = e.clientX - cursorRadius;
       const y = e.clientY - cursorRadius;
-      
       cursorRef.current.style.left = `${x}px`;
       cursorRef.current.style.top = `${y}px`;
     }
   };
 
-  const handleMouseEnter = (e) => {
+  const handleMouseEnter = (e: React.MouseEvent) => {
     if (cursorRef.current) {
       const x = e.clientX - cursorRadius;
       const y = e.clientY - cursorRadius;
-      
       cursorRef.current.style.left = `${x}px`;
       cursorRef.current.style.top = `${y}px`;
       cursorRef.current.style.display = 'flex';
-      
-      gsap.fromTo(cursorRef.current, 
-        { scale: 0 }, 
-        { scale: 1, duration: 0.5, ease: "power2.out" }
-      );
+
+      gsap.fromTo(cursorRef.current, { scale: 0 }, { scale: 1, duration: 0.5, ease: 'power2.out' });
     }
   };
 
-  const handleMouseLeave = (e) => {
+  const handleMouseLeave = (e: React.MouseEvent) => {
     if (cursorRef.current) {
       const x = e.clientX - cursorRadius;
       const y = e.clientY - cursorRadius;
-      
       cursorRef.current.style.left = `${x}px`;
       cursorRef.current.style.top = `${y}px`;
-      
+
       gsap.to(cursorRef.current, {
         scale: 0,
         duration: 0.2,
-        ease: "power2.in",
+        ease: 'power2.in',
         onComplete: () => {
-          cursorRef.current.style.display = 'none';
-        }
+          if (cursorRef.current) {
+            cursorRef.current.style.display = 'none';
+          }
+        },
       });
     }
   };
@@ -120,38 +125,13 @@ const Hero = ({ data }: HeroProps) => {
                 loop
                 fill
                 playsinline
-                asset={background}
+                asset={isVideoBackground || background?.selected === 'image' ? (background as ImageVideoAsset) : null!}
                 onVideoReady={onVideoReady}
                 className="inset-0 absolute aspect-video z-0 pointer-events-none"
               />
             </div>
           </Link>
-          <div 
-            ref={cursorRef}
-            style={{
-              position: 'fixed',
-              width: `${cursorDiameter}px`,
-              height: `${cursorDiameter}px`,
-              borderRadius: '50%',
-              backdropFilter: 'blur(5px)',
-              backgroundColor: 'rgba(0, 0, 0, 0.2)',
-              pointerEvents: 'none',
-              zIndex: 1000,
-              display: 'none',
-              justifyContent: 'center',
-              alignItems: 'center',
-              color: 'white',
-              fontSize: '16px',
-              fontWeight: '500',
-              textAlign: 'center',
-              letterSpacing: '0.5px',
-              lineHeight: '1.1',
-              transformOrigin: 'center center',
-              textTransform: 'capitalize',
-            }}
-          >
-            View<br/>work
-          </div>
+          <Cursor cursorDiameter={cursorDiameter} ref={cursorRef} text="View work" />
         </>
       )}
     </div>

@@ -4,7 +4,6 @@ import Container from "@/components/common/Container";
 import Grid from "@/components/common/Grid";
 import RichText from "@/components/common/RichText/RichText";
 import SanityLink from "@/components/common/SanityLink";
-import type { FooterPayload } from "@/types";
 import StructuredData from "./StructuredData";
 import { groq } from "next-sanity";
 import { client } from "@/sanity/lib/client";
@@ -45,7 +44,6 @@ export default function Footer({ data }: FooterProps) {
 		navigation,
 		socialLinks,
 		lowerLinks,
-		cta,
 	} = data || {};
 
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -72,7 +70,6 @@ export default function Footer({ data }: FooterProps) {
 					}`,
 				);
 				setOffices(officesData);
-				console.log("offices", officesData);
 			} catch (error) {
 				console.error("Error fetching office:", error);
 			}
@@ -84,7 +81,7 @@ export default function Footer({ data }: FooterProps) {
 	navigation.reduce((acc, _, i) => ({ ...acc, [i]: i === 0 }), {})
   );
 
-  const contentRefs = useRef([]);
+  const contentRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
 
   const toggleItem = (index: number) => {
     setOpenItems((prev) => ({

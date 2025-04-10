@@ -96,75 +96,12 @@ export type IntroText = {
 
 export type ImageCarousel = {
   _type: "imageCarousel";
-  richTextContent?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "large" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      _key: string;
-    } & Link>;
-    level?: number;
-    _type: "block";
+  projects?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
     _key: string;
-  } | {
-    _key: string;
-  } & FullWidthAsset | {
-    _key: string;
-  } & Quote | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    caption?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal";
-      listItem?: never;
-      markDefs?: Array<{
-        href?: string;
-        reference?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "home";
-        } | {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        } | {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "project";
-        };
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    _type: "imageWithCaption";
-    _key: string;
-  } | {
-    html?: string;
-    _type: "html";
-    _key: string;
+    [internalGroqTypeReferenceTo]?: "project";
   }>;
   blockOptions?: BlockOptions;
 };
@@ -1318,80 +1255,102 @@ export type HomePageQueryResult = {
   } | {
     _key: string;
     _type: "imageCarousel";
-    richTextContent?: Array<{
+    projects?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
       _key: string;
-    } & FullWidthAsset | {
-      _key: string;
-    } & Quote | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "large" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        _key: string;
-      } & Link>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    } | {
-      html?: string;
-      _type: "html";
-      _key: string;
-    } | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt: string;
-      caption?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal";
-        listItem?: never;
-        markDefs?: Array<{
-          href?: string;
-          reference?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "home";
-          } | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          } | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "project";
-          };
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-      _type: "imageWithCaption";
-      _key: string;
+      [internalGroqTypeReferenceTo]?: "project";
     }>;
     blockOptions?: BlockOptions;
     spotColor: null;
     themeColor: ThemeColor | null;
-    caseStudies: null;
+    caseStudies: Array<{
+      _id: string;
+      _type: "project";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title: string;
+      slug: Slug;
+      capabilities: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "capability";
+      }>;
+      hero: ImageVideoAsset;
+      preview?: {
+        mediaType?: "image" | "video";
+        previewImage?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt: string;
+          _type: "standardImageNoCaption";
+        };
+        previewVideo?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+          };
+          _type: "file";
+        };
+      };
+      previewMobile?: {
+        mediaType?: "image" | "video";
+        previewImage?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt: string;
+          _type: "standardImageNoCaption";
+        };
+        previewVideo?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+          };
+          _type: "file";
+        };
+      };
+      client?: string;
+      site?: string;
+      date?: string;
+      category?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "category";
+      };
+      related?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "project";
+      }>;
+      blocks?: BlockContent;
+      seo?: Seo;
+      themeColor?: ThemeColor;
+      navTheme?: NavTheme;
+      salesforceListId?: string;
+    }> | null;
   } | {
     _key: string;
     _type: "introText";
@@ -1653,80 +1612,102 @@ export type PagesBySlugQueryResult = {
   } | {
     _key: string;
     _type: "imageCarousel";
-    richTextContent?: Array<{
+    projects?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
       _key: string;
-    } & FullWidthAsset | {
-      _key: string;
-    } & Quote | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "large" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        _key: string;
-      } & Link>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    } | {
-      html?: string;
-      _type: "html";
-      _key: string;
-    } | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt: string;
-      caption?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal";
-        listItem?: never;
-        markDefs?: Array<{
-          href?: string;
-          reference?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "home";
-          } | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          } | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "project";
-          };
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-      _type: "imageWithCaption";
-      _key: string;
+      [internalGroqTypeReferenceTo]?: "project";
     }>;
     blockOptions?: BlockOptions;
     spotColor: null;
     themeColor: ThemeColor | null;
-    caseStudies: null;
+    caseStudies: Array<{
+      _id: string;
+      _type: "project";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title: string;
+      slug: Slug;
+      capabilities: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "capability";
+      }>;
+      hero: ImageVideoAsset;
+      preview?: {
+        mediaType?: "image" | "video";
+        previewImage?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt: string;
+          _type: "standardImageNoCaption";
+        };
+        previewVideo?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+          };
+          _type: "file";
+        };
+      };
+      previewMobile?: {
+        mediaType?: "image" | "video";
+        previewImage?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt: string;
+          _type: "standardImageNoCaption";
+        };
+        previewVideo?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+          };
+          _type: "file";
+        };
+      };
+      client?: string;
+      site?: string;
+      date?: string;
+      category?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "category";
+      };
+      related?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "project";
+      }>;
+      blocks?: BlockContent;
+      seo?: Seo;
+      themeColor?: ThemeColor;
+      navTheme?: NavTheme;
+      salesforceListId?: string;
+    }> | null;
   } | {
     _key: string;
     _type: "introText";
@@ -1984,80 +1965,102 @@ export type ProjectBySlugQueryResult = {
   } | {
     _key: string;
     _type: "imageCarousel";
-    richTextContent?: Array<{
+    projects?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
       _key: string;
-    } & FullWidthAsset | {
-      _key: string;
-    } & Quote | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "large" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        _key: string;
-      } & Link>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    } | {
-      html?: string;
-      _type: "html";
-      _key: string;
-    } | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt: string;
-      caption?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal";
-        listItem?: never;
-        markDefs?: Array<{
-          href?: string;
-          reference?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "home";
-          } | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          } | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "project";
-          };
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-      _type: "imageWithCaption";
-      _key: string;
+      [internalGroqTypeReferenceTo]?: "project";
     }>;
     blockOptions?: BlockOptions;
     spotColor: null;
     themeColor: ThemeColor | null;
-    caseStudies: null;
+    caseStudies: Array<{
+      _id: string;
+      _type: "project";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title: string;
+      slug: Slug;
+      capabilities: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "capability";
+      }>;
+      hero: ImageVideoAsset;
+      preview?: {
+        mediaType?: "image" | "video";
+        previewImage?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt: string;
+          _type: "standardImageNoCaption";
+        };
+        previewVideo?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+          };
+          _type: "file";
+        };
+      };
+      previewMobile?: {
+        mediaType?: "image" | "video";
+        previewImage?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt: string;
+          _type: "standardImageNoCaption";
+        };
+        previewVideo?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+          };
+          _type: "file";
+        };
+      };
+      client?: string;
+      site?: string;
+      date?: string;
+      category?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "category";
+      };
+      related?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "project";
+      }>;
+      blocks?: BlockContent;
+      seo?: Seo;
+      themeColor?: ThemeColor;
+      navTheme?: NavTheme;
+      salesforceListId?: string;
+    }> | null;
   } | {
     _key: string;
     _type: "introText";
@@ -2564,80 +2567,102 @@ export type OfficeBySlugQueryResult = {
   } | {
     _key: string;
     _type: "imageCarousel";
-    richTextContent?: Array<{
+    projects?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
       _key: string;
-    } & FullWidthAsset | {
-      _key: string;
-    } & Quote | {
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "large" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        _key: string;
-      } & Link>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    } | {
-      html?: string;
-      _type: "html";
-      _key: string;
-    } | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt: string;
-      caption?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal";
-        listItem?: never;
-        markDefs?: Array<{
-          href?: string;
-          reference?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "home";
-          } | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "page";
-          } | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "project";
-          };
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
-      _type: "imageWithCaption";
-      _key: string;
+      [internalGroqTypeReferenceTo]?: "project";
     }>;
     blockOptions?: BlockOptions;
     spotColor: null;
     themeColor: ThemeColor | null;
-    caseStudies: null;
+    caseStudies: Array<{
+      _id: string;
+      _type: "project";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title: string;
+      slug: Slug;
+      capabilities: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "capability";
+      }>;
+      hero: ImageVideoAsset;
+      preview?: {
+        mediaType?: "image" | "video";
+        previewImage?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt: string;
+          _type: "standardImageNoCaption";
+        };
+        previewVideo?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+          };
+          _type: "file";
+        };
+      };
+      previewMobile?: {
+        mediaType?: "image" | "video";
+        previewImage?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt: string;
+          _type: "standardImageNoCaption";
+        };
+        previewVideo?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+          };
+          _type: "file";
+        };
+      };
+      client?: string;
+      site?: string;
+      date?: string;
+      category?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "category";
+      };
+      related?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "project";
+      }>;
+      blocks?: BlockContent;
+      seo?: Seo;
+      themeColor?: ThemeColor;
+      navTheme?: NavTheme;
+      salesforceListId?: string;
+    }> | null;
   } | {
     _key: string;
     _type: "introText";

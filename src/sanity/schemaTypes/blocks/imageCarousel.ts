@@ -12,9 +12,19 @@ export default defineField({
 	...blockGroups,
 	fields: [
 		defineField({
-			title: "Content",
-			name: "richTextContent",
-			type: "richText",
+			title: "Projects",
+			name: "projects",
+			type: "array",
+			of: [
+				{
+					name: "category",
+					type: "reference",
+					to: [{ type: "project" }],
+					options: {
+						disableNew: false,
+					},
+				},
+			],
 			group: "block",
 		}),
 		defineField({

@@ -81,6 +81,13 @@
 		opacity: 1;
 	}
 }
+.content-block-imageCarousel {
+	.splide__slide.is-active {
+		a{
+			cursor: none;
+		}
+	}
+}
 
 @utility rich-text {
 	p {

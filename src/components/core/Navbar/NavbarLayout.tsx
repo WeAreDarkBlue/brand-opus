@@ -78,7 +78,7 @@ const isDarkNav = (navTheme: string) => {
 
 export default function Navbar({ data }: NavbarProps) {
 	const [subMenu, setSubMenu] = useState<SubmenuItem[] | null>(null);
-	const menuItems = data?.menuItems || ([] as MenuItem[]);
+	// const menuItems = data?.menuItems || ([] as MenuItem[]);
 	const subMenuEl = useRef<HTMLUListElement | null>(null);
 	const navEl = useRef<HTMLDivElement | null>(null);
 	const lenis = useLenis();
@@ -86,6 +86,7 @@ export default function Navbar({ data }: NavbarProps) {
 	navTheme = stegaClean(navTheme);
 	const bgClass = isDarkNav(navTheme) ? "bg-white/95" : "bg-black/95";
 	const pathName = usePathname();
+
 
 	const subMenuRefsByKey = useMemo(() => {
 		const refs = {};
@@ -182,19 +183,41 @@ export default function Navbar({ data }: NavbarProps) {
 	);
 
 
+
+	const menuItems = [
+		{
+			_key: "1",
+			title: "About",
+			slug: "about",
+		},
+		{
+			_key: "2",
+			title: "Insights",
+			slug: "insights",
+		},
+		{
+			_key: "3",
+			title: "Work",
+			slug: "work",
+		},
+		{
+			_key: "4",
+			title: "Contact",
+			slug: "contact",
+		},
+	];
 	return (
 		<Sheet open={subMenu !== null} modal={false}>
 			<nav
 				className={cn(
-					"z-10 w-full pointer-events-auto transition-all ease-in-out",
-					isBackgroundVisible(navTheme) && bgClass,
+					"z-10 w-full pointer-events-auto transition-all ease-in-out bg-black lg:bg-transparent",
 					isDarkNav(navTheme) && subMenu === null ? "text-black" : "text-white",
 				)}
 				id="site-nav"
 				ref={navEl}
 			>
-				<Container>
-					<div className={cn("flex items-center justify-between h-24")}>
+				<Container noPadding>
+					<div className={cn("flex items-center justify-between h-24 px-15 py-15")}>
 						<SanityLink
 							link="/"
 							className="block w-[84px] md:w-[120px]"
@@ -209,51 +232,48 @@ export default function Navbar({ data }: NavbarProps) {
 								className="w-[94px] h-[40px] md:w-[48px] md:h-[56px]"
 							/>
 						</SanityLink>
-
+						
 						{menuItems && (
-							<ul className="flex flex-wrap items-center gap-x-5 py-4 md:py-5 mr-[8px] md:mr-0">
+							<ul className="flex-wrap items-end gap-x-[25px] py-4 md:pt-5 md:pb-0 mr-[8px] md:mr-0 z-10 hidden lg:flex">
 								{menuItems.map((menuItem) => {
 									return (
 										<li
 											key={menuItem._key}
-											className={
-												!subMenu || menuItem.submenu === subMenu
-													? "opacity-100"
-													: "opacity-30"
-											}
+											className=""
 										>
-											<SheetTrigger
-												onClick={() => toggleMenuItem(menuItem)}
-												className={cn(
-													"tracking-[0.5px] md:tracking-normal text-[18px] md:text-lg md:leading-[24px] font-semibold uppercase md:min-w-[100px]",
-												)}
+											<SanityLink
+												link={menuItem.slug}
+												className="text-[17px] xl:text-[22px] font-bold"
 											>
 												{menuItem.title}
-											</SheetTrigger>
+											</SanityLink>
 										</li>
 									);
 								})}
 							</ul>
 						)}
 
-						{/* Below only necessary while client area link is hidden */}
-						<span className="hidden md:block md:text-lg md:leading-[24px] font-semibold uppercase min-w-[120px]">
-							&nbsp;
-						</span>
+
+						{/* <SheetTrigger
+							onClick={() => toggleMenuItem(menuItem)}
+						>
+							text
+						</SheetTrigger> */}
+
 					</div>
 				</Container>
 
 				<SheetContent
-					side="top"
+					side="left"
 					aria-describedby={undefined}
-					className="md:pt-24 pb-10 px-0"
+					className="md:pt-24 pb-10 px-0 bg-secondary"
 					onInteractOutside={closeSubMenu}
 					onEscapeKeyDown={closeSubMenu}
 					onCloseAutoFocus={(e) => e.preventDefault()}
 				>
 					<SheetHeader className="text-left px-5 mb-12 flex items-center justify-between">
 						<SheetTitle className="md:hidden text-3xl uppercase">
-							{subMenu && getSubmenuTitle(menuItems, subMenu)}
+							Logo
 						</SheetTitle>
 						<SheetClose
 							className="md:sr-only flex gap-3 hover:gap-2 transition-all items-center uppercase tracking-wider font-semibold outline-none"
@@ -287,7 +307,7 @@ export default function Navbar({ data }: NavbarProps) {
 											onClick={onLinkClick}
 											ariaLabelledby={`submenu-title-${subMenuItem._key}`}
 										>
-											{subMenuItem.image && (
+											{/* {subMenuItem.image && (
 												<RenderImage
 													className="transition-transform scale-100 group-hover:scale-105 duration-300"
 													image={subMenuItem.image}
@@ -295,7 +315,7 @@ export default function Navbar({ data }: NavbarProps) {
 													fill
 													sizes="(max-width: 768px) 100vw, 750px"
 												/>
-											)}
+											)} */}
 											{subMenuItem.link?.title && (
 												<span className="absolute bottom-0 left-0 right-0 text-lg sm:text-xl md:text-3xl-m 2xl:text-3xl font-semibold p-4 xl:p-8 text-center transition-transform origin-top-left tracking-minus md:text-right xl:text-center md:-rotate-90 md:right-auto md:translate-y-full xl:translate-y-0 xl:right-0 xl:rotate-0">
 													{toPlainText(subMenuItem.link?.title)}
