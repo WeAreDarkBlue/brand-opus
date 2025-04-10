@@ -91,7 +91,12 @@ export async function generateStaticParams() {
 		generateStaticSlugs("newsPost"),
 	]);
 
-	return slugs.flat().map((s) => ({ slug: s }));
+	return slugs
+		.flat()
+		.filter(Boolean)
+		.map((s) => ({
+			slug: Array.isArray(s) ? s : [s], // Ensure it's always an array
+		}));
 }
 
 export default async function DocumentRoute({ params, searchParams }: Props) {
