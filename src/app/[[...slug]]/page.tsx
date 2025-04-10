@@ -106,11 +106,15 @@ export default async function DocumentRoute({ params, searchParams }: Props) {
 			initial = await loadHomePage();
 
 			return isEnabled ? (
-				<HomePagePreview initial={initial} />
+				initial ? (
+					<HomePagePreview initial={initial} />
+				) : (
+					homeNotFound()
+				)
 			) : initial?.data ? (
 				<HomePage data={initial.data} country={country} />
 			) : (
-				homeNotFound()
+				notFound()
 			);
 		case "page":
 			initial = await loadPage(params.slug[0]);
