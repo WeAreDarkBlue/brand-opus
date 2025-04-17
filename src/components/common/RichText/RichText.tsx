@@ -52,6 +52,25 @@ const components: PortableTextComponents = {
 				</SanityLink>
 			);
 		},
+		scrollToBottom: ({ children }) => {
+			const handleClick = () => {
+				window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+			};
+		
+			return (
+				<button
+					onClick={handleClick}
+					style={{
+						all: 'unset',
+						cursor: 'pointer',
+						color: 'inherit',
+						textDecoration: 'underline',
+					}}
+				>
+					{children}
+				</button>
+			);
+		},
 	},
 };
 

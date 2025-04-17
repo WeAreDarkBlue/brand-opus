@@ -32,6 +32,7 @@ export default defineField({
 					{ title: "Strong", value: "strong" },
 					{ title: "Emphasis", value: "em" },
 					{ title: "Code", value: "code" },
+					{ title: 'Scroll to Bottom', value: 'scrollToBottom' }, // Add this
 				],
 				annotations: [
 					{

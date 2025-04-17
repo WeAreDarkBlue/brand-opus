@@ -188,7 +188,7 @@ export default function Navbar({ data }: NavbarProps) {
 		{
 			_key: "1",
 			title: "About",
-			slug: "about",
+			slug: "culture",
 		},
 		{
 			_key: "2",

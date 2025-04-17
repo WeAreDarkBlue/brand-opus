@@ -13,6 +13,25 @@
 
 	--font-body: var(--font-apercu);
 	--font-heading: var(--font-juana);
+
+
+	--text-8xl: 75px;
+	--text-7xl: 68px;
+	--text-6xl: 50px;
+	--text-5xl: 42px;
+	--text-4xl: 38px;
+	--text-3xl: 35px;
+	--text-2xl: 30px;
+	--text-xl: 27px;
+	--text-lg: 25px;
+	--text-md: 22px;
+	--text-sm: 17px;
+	--text-xs: 12px;
+
+	--leading-4xl: 90px;
+	--leading-3xl: 68px;
+	--leading-2xl: 42px;
+	--leading-lg: 30px;
 }
 
 @layer base {
@@ -43,6 +62,7 @@
 
 .content-block-scrollingMarquee,
 .content-block-quoteCarousel, 
+.content-block-hero,
 .content-block-imageCarousel {
   .mx-auto {
     .px-5 {

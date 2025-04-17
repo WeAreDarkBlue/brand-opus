@@ -8,3 +8,7 @@ export { default as TwoColumnList } from "./TwoColumnList";
 export { default as ScrollingMarquee } from "./ScrollingMarquee";
 export { default as ImageCarousel } from "./ImageCarousel";
 export { default as QuoteCarousel } from "./QuoteCarousel";
+export { default as Hero } from "./Hero";
+export { default as ContentWithAsset } from "./ContentWithAsset";
+export { default as JobList } from "./JobList";
+export { default as JobsContact } from "./JobsContact";

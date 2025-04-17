@@ -106,6 +106,17 @@ export type ImageCarousel = {
   blockOptions?: BlockOptions;
 };
 
+export type Hero = {
+  _id: string;
+  _type: "hero";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  hero?: {
+    background?: ImageVideoAsset;
+  };
+};
+
 export type FullWidthAsset = {
   _type: "fullWidthAsset";
   asset?: ImageVideoAsset;
@@ -581,6 +592,12 @@ export type BlockContent = Array<{
 } & Capabilities | {
   _key: string;
 } & FullWidthAsset | {
+  hero?: {
+    background?: ImageVideoAsset;
+  };
+  _type: "hero";
+  _key: string;
+} | {
   _key: string;
 } & ImageCarousel | {
   _key: string;
@@ -1075,7 +1092,7 @@ export type ImageVideoAsset = {
   imageMobile?: StandardImageNoCaption;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | TwoColumnList | ScrollingMarquee | QuoteCarousel | Quote | ProjectsList | IntroText | ImageCarousel | FullWidthAsset | Capabilities | BasicContent | VideoAsset | ThemeColor | StandardImageWithMobile | StandardImage | SocialLink | RichTextLite | RichText | NavTheme | LinkGroup | ImageVideoAssetLocal | Contact | BlockOptions | BlockContent | Office | NewsPost | Capability | Author | Settings | Header | Footer | Link | Home | Page | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityImageMetadata | Seo | Category | SanityFileAsset | SanityAssetSourceData | StandardImageNoCaption | Slug | ImageVideoAsset;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | TwoColumnList | ScrollingMarquee | QuoteCarousel | Quote | ProjectsList | IntroText | ImageCarousel | Hero | FullWidthAsset | Capabilities | BasicContent | VideoAsset | ThemeColor | StandardImageWithMobile | StandardImage | SocialLink | RichTextLite | RichText | NavTheme | LinkGroup | ImageVideoAssetLocal | Contact | BlockOptions | BlockContent | Office | NewsPost | Capability | Author | Settings | Header | Footer | Link | Home | Page | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityImageMetadata | Seo | Category | SanityFileAsset | SanityAssetSourceData | StandardImageNoCaption | Slug | ImageVideoAsset;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: homePageQuery
@@ -1260,6 +1277,15 @@ export type HomePageQueryResult = {
     asset?: ImageVideoAsset;
     description?: string;
     blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    hero?: {
+      background?: ImageVideoAsset;
+    };
+    _type: "hero";
+    _key: string;
     spotColor: null;
     themeColor: ThemeColor | null;
     caseStudies: null;
@@ -1621,6 +1647,15 @@ export type PagesBySlugQueryResult = {
     themeColor: ThemeColor | null;
     caseStudies: null;
   } | {
+    hero?: {
+      background?: ImageVideoAsset;
+    };
+    _type: "hero";
+    _key: string;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
     _key: string;
     _type: "imageCarousel";
     projects?: Array<{
@@ -1970,6 +2005,15 @@ export type ProjectBySlugQueryResult = {
     asset?: ImageVideoAsset;
     description?: string;
     blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    hero?: {
+      background?: ImageVideoAsset;
+    };
+    _type: "hero";
+    _key: string;
     spotColor: null;
     themeColor: ThemeColor | null;
     caseStudies: null;
@@ -2572,6 +2616,15 @@ export type OfficeBySlugQueryResult = {
     asset?: ImageVideoAsset;
     description?: string;
     blockOptions?: BlockOptions;
+    spotColor: null;
+    themeColor: ThemeColor | null;
+    caseStudies: null;
+  } | {
+    hero?: {
+      background?: ImageVideoAsset;
+    };
+    _type: "hero";
+    _key: string;
     spotColor: null;
     themeColor: ThemeColor | null;
     caseStudies: null;

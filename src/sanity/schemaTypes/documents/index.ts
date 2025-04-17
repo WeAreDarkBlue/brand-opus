@@ -5,3 +5,4 @@ export { default as project } from "./project";
 export { default as author } from "./author";
 export { default as capability } from "./capability";
 export { default as office } from "./office";
+export { default as job } from "./job";
