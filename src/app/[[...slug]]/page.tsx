@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 
 import HomePage from "@/components/templates/home/HomePage";
 import NewsPage from "@/components/templates/news/NewsPage";
+import JobsPage from "@/components/templates/jobs/JobsPage";
 import { Page } from "@/components/templates/page/Page";
 import ProjectPage from "@/components/templates/project/ProjectPage";
 import { studioUrl } from "@/sanity/lib/api";
@@ -17,6 +18,7 @@ import {
 	loadNews,
 	loadPage,
 	loadProject,
+	loadJobs
 } from "@/sanity/loader/loadQuery";
 
 const PagePreview = dynamic(
@@ -31,6 +33,9 @@ const ProjectPreview = dynamic(
 const NewsPreview = dynamic(
 	() => import("@/components/templates/news/NewsPreview"),
 );
+// const JobsPreview = dynamic(
+// 	() => import("@/components/templates/jobs/JobsPreview"),
+// );
 
 type Props = {
 	params: { slug: string[] };
@@ -109,14 +114,9 @@ export default async function DocumentRoute({ params, searchParams }: Props) {
 	switch (type) {
 		case "home":
 			initial = await loadHomePage();
-
-			return isEnabled ? (
-				initial ? (
+				return isEnabled ? (
 					<HomePagePreview initial={initial} />
-				) : (
-					homeNotFound()
-				)
-			) : initial?.data ? (
+				) : initial?.data ? (
 				<HomePage data={initial.data} country={country} />
 			) : (
 				notFound()
@@ -148,6 +148,15 @@ export default async function DocumentRoute({ params, searchParams }: Props) {
 			) : (
 				notFound()
 			);
+		// case "jobsPost":
+		// 	initial = await loadJobs(params.slug[1]);
+		// 	return isEnabled ? (
+		// 		<JobsPreview params={{ slug: params.slug[1] }} initial={initial} />
+		// 	) : initial?.data ? (
+		// 		<JobsPage data={initial.data} country={country} />
+		// 	) : (
+		// 		notFound()
+		// 	);
 
 		// Add any new resource types here e.g.
 		// case 'yourResourceType':
