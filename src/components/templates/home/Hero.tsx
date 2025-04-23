@@ -24,6 +24,7 @@ const Hero = ({ data }: HeroProps) => {
   const isVideoBackground = background?.selected === 'video'
   const [showLoader, setShowLoader] = useState<boolean>(isVideoBackground)
   const backgroundRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const onVideoReady = () => {
     setShowLoader(false)
@@ -56,7 +57,7 @@ const Hero = ({ data }: HeroProps) => {
 
   // Initialize cursor on mount
   useEffect(() => {
-    if (!isVideoBackground && backgroundRef.current) {
+    if (!isVideoBackground && backgroundRef.current && isDesktop) {
       initializeCursor();
     }
     // For video backgrounds, initialization happens in onVideoReady
@@ -95,13 +96,22 @@ const Hero = ({ data }: HeroProps) => {
         duration: 0.2,
         ease: 'power2.in',
         onComplete: () => {
-          if (cursorRef.current) {
+          if (cursorRef.current && isDesktop) {
             cursorRef.current.style.display = 'none';
           }
         },
       });
     }
   };
+
+
+
+  useEffect(() => {
+    const checkScreen = () => setIsDesktop(window.innerWidth >= 1024);
+    checkScreen();
+    window.addEventListener('resize', checkScreen);
+    return () => window.removeEventListener('resize', checkScreen);
+  }, []);
 
   return (
     <div
@@ -131,7 +141,9 @@ const Hero = ({ data }: HeroProps) => {
               />
             </div>
           </Link>
-          <Cursor cursorDiameter={cursorDiameter} ref={cursorRef} text="View work" />
+          {isDesktop && (
+            <Cursor cursorDiameter={cursorDiameter} ref={cursorRef} text="View work" />
+          )}
         </>
       )}
     </div>

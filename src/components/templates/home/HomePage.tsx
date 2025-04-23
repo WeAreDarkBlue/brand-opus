@@ -32,7 +32,7 @@ export function HomePage({
         className={`${themeColor === 'dark' ? 'theme-dark' : 'theme-light'} bg-theme-bg text-theme-text bg-black`}
       >
         {/* static part of logo */}
-        <div className="absolute top-[55px] left-[122px] z-50 text-3xl pointer-events-none">
+        <div className="hidden md:block absolute top-[55px] left-[122px] z-50 text-3xl pointer-events-none">
           <TypeLogoSVG className="w-[153px]" />
         </div>
         
