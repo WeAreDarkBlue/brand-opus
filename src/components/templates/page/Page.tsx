@@ -3,6 +3,7 @@ import ThemeSetter from "@/components/core/ThemeSetter";
 import type { PagePayload } from "@/types";
 import { stegaClean } from "@sanity/client/stega";
 import type { PagesBySlugQueryResult } from "../../../../sanity.types";
+import StaticLogo from "@/components/common/StaticLogo";
 
 export interface PageProps {
 	data: PagePayload | null;
@@ -18,6 +19,9 @@ export function Page({ data, country }: { data: PagesBySlugQueryResult }) {
 	return (
 		<>
 			<ThemeSetter theme={themeColor} navTheme={navTheme} />
+			{/* static part of logo */}
+			<StaticLogo fill={themeColor === "dark" ? "white" : "black"}/>
+
 			<div
 				className={`${themeColor === "dark" ? "bg-black" : "bg-white"} bg-theme-bg text-theme-text`}
 			>

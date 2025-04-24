@@ -8,6 +8,8 @@ import Hero from './Hero'
 import { Canvas } from '@/lib/webgl/components/canvas'
 import ThemeSetter from '@/components/core/ThemeSetter'
 import {stegaClean} from "@sanity/client/stega"
+import { StateLink } from 'sanity/router';
+import StaticLogo from '@/components/common/StaticLogo';
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -32,10 +34,8 @@ export function HomePage({
         className={`${themeColor === 'dark' ? 'theme-dark' : 'theme-light'} bg-theme-bg text-theme-text bg-black`}
       >
         {/* static part of logo */}
-        <div className="hidden md:block absolute top-[55px] left-[122px] z-50 text-3xl pointer-events-none">
-          <TypeLogoSVG className="w-[153px]" />
-        </div>
-        
+        <StaticLogo/>
+
         {/* Hero */}
         { hero && <Hero data={hero} /> }
 

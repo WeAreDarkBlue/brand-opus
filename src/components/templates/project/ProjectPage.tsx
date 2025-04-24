@@ -5,6 +5,7 @@ import PageHero from "@/components/common/PageHero";
 import BlockRenderer from "@/components/core/BlockRenderer/BlockRenderer";
 import ThemeSetter from "@/components/core/ThemeSetter";
 import type { ProjectPayload } from "@/types";
+import StaticLogo from "@/components/common/StaticLogo";
 
 export interface ProjectPageProps {
 	data: ProjectPayload | null;
@@ -25,6 +26,8 @@ export function ProjectPage({
 	return (
 		<>
 			<ThemeSetter theme={themeColor} navTheme={navTheme} />
+			{/* static part of logo */}
+			<StaticLogo fill={themeColor === "dark" ? "white" : "black"}/>
 			<div
 				className={`${themeColor === "dark" ? "theme-dark" : "theme-light"} bg-theme-bg text-theme-text`}
 			>

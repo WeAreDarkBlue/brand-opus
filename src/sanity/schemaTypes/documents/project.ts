@@ -59,6 +59,12 @@ export default defineType({
 		}),
 		defineField({
 			group: "page",
+			name: "previewVideo",
+			title: "Preview Video",
+			type: "imageVideoAsset",
+		}),
+		defineField({
+			group: "page",
 			name: "preview",
 			type: "object",
 			title: "Preview",

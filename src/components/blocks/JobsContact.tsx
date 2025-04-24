@@ -24,8 +24,8 @@ const JobsContact = ({ data }: BlockJobsContactProps) => {
 	const { lookingForContent, lookingForHeading, lookingForWarning, startingOutContent, startingOutHeading, startingOutLink } = data;
 	return (
 		<div className={'lg:container mx-auto xl:max-w-[1320px] text-white mb-12 md:mb-0'}>
-			<Grid gap={12}>
-				<div className="col-span-full lg:col-span-12 mb-10 lg:mb-0">
+			<Grid>
+				<div className="col-span-24 lg:col-span-12 mb-10 lg:mb-0">
 					<h3 className="text-lg md:text-3xl font-body font-bold mb-4">{lookingForHeading}</h3>
 					<div className="text-sm md:text-md mb-6">
 						{lookingForContent && <div className="inline-block"><RichText content={lookingForContent} /></div>}
@@ -34,7 +34,7 @@ const JobsContact = ({ data }: BlockJobsContactProps) => {
 						{lookingForWarning && <div className="inline-block"><RichText content={lookingForWarning} /></div>}
 					</div>
 				</div>
-				<div className="col-span-full lg:col-span-12">
+				<div className="col-span-24 lg:col-span-12">
 					<h3 className="text-lg md:text-3xl font-body font-bold mb-4">{startingOutHeading}</h3>
 					<div className="text-sm md:text-md mb-6">
 						{startingOutContent && <RichText content={startingOutContent} />}

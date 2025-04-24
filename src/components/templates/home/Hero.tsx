@@ -116,7 +116,7 @@ const Hero = ({ data }: HeroProps) => {
   return (
     <div
       ref={heroEl}
-      className={`hero relative w-full aspect-video max-h-screen bg-black overflow-hidden origin-top flex flex-col justify-center items-center text-center [--intro-progress:0]`}
+      className={`hero relative w-full mt-[60px] md:mt-0 aspect-video max-h-screen bg-black overflow-hidden origin-top flex flex-col justify-center items-center text-center [--intro-progress:0]`}
     >
       {background && (
         <>

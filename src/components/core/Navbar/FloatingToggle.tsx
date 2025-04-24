@@ -58,7 +58,7 @@ export default function FloatingToggle({ onClick }: { onClick: () => void }) {
   return createPortal(
     <button
       onClick={handleClick}
-      className="fixed top-[12px] right-5 z-[9999] w-10 h-10 flex items-center justify-center pointer-events-auto md:hidden"
+      className="fixed top-[12px] right-5 z-[9999] w-10 h-10 flex items-center justify-center pointer-events-auto lg:hidden"
     >
       <div className="relative w-8 h-8">
         <span
