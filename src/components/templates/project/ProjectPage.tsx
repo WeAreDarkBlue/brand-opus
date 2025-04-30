@@ -33,9 +33,7 @@ export function ProjectPage({
 			>
 				<div className="space-y-6">
 					{hero && (
-						<div className="relative inset-0 h-screen-dvh z-[1]">
 							<PageHero data={data} />
-						</div>
 					)}
 
 					<div

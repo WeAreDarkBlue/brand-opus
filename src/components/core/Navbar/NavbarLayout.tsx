@@ -136,13 +136,13 @@ export default function Navbar({ data }: NavbarProps) {
 			<nav
 				className={cn(
 					"z-10 w-full pointer-events-auto transition-all ease-in-out bg-black lg:bg-transparent",
-					isDarkNav(navTheme) && subMenu === null ? "text-black" : "text-white",
+					isDarkNav(navTheme) ? "text-black" : "text-white",
 				)}
 				id="site-nav"
 
 			>
 				<Container noPadding>
-					<div className={cn("flex items-center justify-between lg:h-24 px-[15px] lg:px-15 py-4 lg:py-15")}>
+					<div className={cn("flex items-center justify-between px-[15px] lg:px-15 py-4 lg:py-9")}>
 						<SanityLink
 							link="/"
 							className="block w-[50px] mix-blend-difference"
@@ -151,14 +151,14 @@ export default function Navbar({ data }: NavbarProps) {
 							<Logo
 								variant="logoOnly"
 								fill={
-									isDarkNav(navTheme) && subMenu === null ? "black" : "white"
+									isDarkNav(navTheme) ? "black" : "white"
 								}
 								className="hidden lg:block w-[94px] h-[40px] md:w-[48px] md:h-[56px]"
 							/>
 							<Logo
 								variant="full"
 								fill={
-									isDarkNav(navTheme) && subMenu === null ? "black" : "white"
+									isDarkNav(navTheme) ? "black" : "white"
 								}
 								className="lg:hidden block w-[128px] h-[33px]"
 							/>
@@ -173,7 +173,7 @@ export default function Navbar({ data }: NavbarProps) {
 											className=""
 										>
 											<SanityLink
-												link={menuItem.slug}
+												link={"../" + menuItem.slug}
 												className="text-[17px] xl:text-[22px] font-bold"
 											>
 												{menuItem.title}
@@ -189,9 +189,6 @@ export default function Navbar({ data }: NavbarProps) {
 								</li>
 							</ul>
 						)}
-						{/* <SheetTrigger asChild className="block lg:hidden text-white">
-							<button>OPEN</button>
-						</SheetTrigger> */}
 					</div>
 				</Container>
 				<Sheet open={open} onOpenChange={setOpen}>

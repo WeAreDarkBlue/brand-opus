@@ -130,7 +130,7 @@ const VideoPlayer = (props: VideoPlayerProps, ref) => {
 			{videoUrl && (
 				<div
 					className={cn(
-						"relative group hover:cursor-pointer",
+						"relative group",
 						fill && "object-cover size-full",
 					)}
 					style={{ aspectRatio: aspectRatio || "unset" }}

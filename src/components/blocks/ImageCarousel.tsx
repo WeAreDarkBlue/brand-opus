@@ -6,6 +6,8 @@ import RenderImage from "../common/RenderImage";
 import Link from "next/link";
 import { gsap } from 'gsap';
 import HoverCursor from '../common/HoverCursor';
+import { da } from 'date-fns/locale';
+import ImageVideoAssetComponent from '../common/ImageVideoAsset';
 
 // Define the BlockImageCarouselProps type
 interface BlockImageCarouselProps {
@@ -27,6 +29,7 @@ const ImageCarousel = ({ data }: BlockImageCarouselProps) => {
   const splideRef = useRef<{ splide: { on: Function; off: Function; index: number } } | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const cursorRef = useRef<HTMLDivElement | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
     const splide = splideRef.current?.splide;
@@ -41,7 +44,10 @@ const ImageCarousel = ({ data }: BlockImageCarouselProps) => {
     };
   }, []);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: React.MouseEvent, index) => {
+    if (hoveredIndex !== index) {
+      setHoveredIndex(index);
+    }
     if (cursorRef.current) {
       const x = e.clientX - cursorDiameter / 2;
       const y = e.clientY - cursorDiameter / 2;
@@ -50,7 +56,11 @@ const ImageCarousel = ({ data }: BlockImageCarouselProps) => {
     }
   };
 
-  const handleMouseEnter = (e: React.MouseEvent) => {
+  const handleMouseEnter = (e: React.MouseEvent, index) => {
+    console.log(index)
+    if (hoveredIndex !== index) {
+      setHoveredIndex(index);
+    }
     if (cursorRef.current) {
       const x = e.clientX - cursorDiameter / 2;
       const y = e.clientY - cursorDiameter / 2;
@@ -68,6 +78,7 @@ const ImageCarousel = ({ data }: BlockImageCarouselProps) => {
   };
 
   const handleMouseLeave = (e: React.MouseEvent) => {
+    setHoveredIndex(null);
     if (cursorRef.current) {
       const x = e.clientX - cursorDiameter / 2;
       const y = e.clientY - cursorDiameter / 2;
@@ -116,9 +127,9 @@ const ImageCarousel = ({ data }: BlockImageCarouselProps) => {
             <SplideSlide key={i}>
               <Link href={`/work/${project.slug.current}`}>
                 <div
-                  onMouseEnter={handleMouseEnter}
-                  onMouseMove={handleMouseMove}
-                  onMouseLeave={handleMouseLeave}
+                  onMouseEnter={(e) => handleMouseEnter(e, i)}
+                  onMouseLeave={(e) => handleMouseLeave(e)} // if you want to keep updating
+                  onMouseMove={(e) => handleMouseMove(e, i)} // if you want to keep updating
                   style={{
                     width: '100%',
                     aspectRatio: '16 / 9',
@@ -138,6 +149,16 @@ const ImageCarousel = ({ data }: BlockImageCarouselProps) => {
                     image={project.hero?.imageDesktop}
                     alt={project.title}
                     fill={true}
+                  />
+                  <ImageVideoAssetComponent
+                    autoPlay
+                    loop
+                    fill
+                    playsinline
+                    asset={project.previewVideo}
+                    className={`inset-0 absolute aspect-video z-0 transition-opacity duration-300 ${
+                      hoveredIndex === i ? 'opacity-100' : 'opacity-0'
+                    }`}
                   />
                 </div>
               </Link>

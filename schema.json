@@ -8147,6 +8147,14 @@
         },
         "optional": false
       },
+      "previewVideo": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "imageVideoAsset"
+        },
+        "optional": true
+      },
       "preview": {
         "type": "objectAttribute",
         "value": {

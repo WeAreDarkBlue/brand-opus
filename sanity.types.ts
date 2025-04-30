@@ -1222,6 +1222,7 @@ export type Project = {
     [internalGroqTypeReferenceTo]?: "capability";
   }>;
   hero: ImageVideoAsset;
+  previewVideo?: ImageVideoAsset;
   preview?: {
     mediaType?: "image" | "video";
     previewImage?: {
@@ -1739,6 +1740,7 @@ export type HomePageQueryResult = {
         [internalGroqTypeReferenceTo]?: "capability";
       }>;
       hero: ImageVideoAsset;
+      previewVideo?: ImageVideoAsset;
       preview?: {
         mediaType?: "image" | "video";
         previewImage?: {
@@ -2441,6 +2443,7 @@ export type PagesBySlugQueryResult = {
         [internalGroqTypeReferenceTo]?: "capability";
       }>;
       hero: ImageVideoAsset;
+      previewVideo?: ImageVideoAsset;
       preview?: {
         mediaType?: "image" | "video";
         previewImage?: {
@@ -3139,6 +3142,7 @@ export type ProjectBySlugQueryResult = {
         [internalGroqTypeReferenceTo]?: "capability";
       }>;
       hero: ImageVideoAsset;
+      previewVideo?: ImageVideoAsset;
       preview?: {
         mediaType?: "image" | "video";
         previewImage?: {
@@ -3557,6 +3561,7 @@ export type ProjectBySlugQueryResult = {
       [internalGroqTypeReferenceTo]?: "capability";
     }>;
     hero: ImageVideoAsset;
+    previewVideo?: ImageVideoAsset;
     preview?: {
       mediaType?: "image" | "video";
       previewImage?: {
@@ -4089,6 +4094,7 @@ export type OfficeBySlugQueryResult = {
         [internalGroqTypeReferenceTo]?: "capability";
       }>;
       hero: ImageVideoAsset;
+      previewVideo?: ImageVideoAsset;
       preview?: {
         mediaType?: "image" | "video";
         previewImage?: {

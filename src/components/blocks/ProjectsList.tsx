@@ -1,16 +1,19 @@
 "use client";
 
+import gsap from 'gsap'
 import Link from "next/link";
 import type {
 	Project as ProjectType,
 	Capability as CapabilityType,
 } from "../../../sanity.types";
 import RenderImage from "../common/RenderImage";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ChevronRight } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { groq } from "next-sanity";
 import { client } from "@/sanity/lib/client";
+import ImageVideoAssetComponent from '../common/ImageVideoAsset';
+import Cursor from '@/components/common/HoverCursor'
 
 function ProjectsList() {
 	const [projects, setProjects] = useState<ProjectType[]>([]);
@@ -20,6 +23,15 @@ function ProjectsList() {
 	);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+	const [hoveredIndex, setHoveredIndex] = useState(null);
+	const [isDesktop, setIsDesktop] = useState(false);
+
+	useEffect(() => {
+		const checkScreen = () => setIsDesktop(window.innerWidth >= 1024);
+		checkScreen();
+		window.addEventListener('resize', checkScreen);
+		return () => window.removeEventListener('resize', checkScreen);
+	}, []);
 
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -31,6 +43,7 @@ function ProjectsList() {
 						title,
 						slug,
 						hero,
+						previewVideo,
 						capabilities[]-> {
 							_id,
 							title,
@@ -55,7 +68,6 @@ function ProjectsList() {
 				setIsLoading(false);
 			}
 		};
-
 		fetchProjects();
 	}, []);
 
@@ -71,6 +83,84 @@ function ProjectsList() {
 		);
 		setIsOpen(false);
 	};
+
+
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const cursorRadius = 50;
+  const cursorDiameter = cursorRadius * 2;
+
+  const mousePosition = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mousePosition.current = { x: e.clientX, y: e.clientY };
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+	
+
+	const handleMouseMove = (e: React.MouseEvent, index) => {
+		if (hoveredIndex !== index) {
+      setHoveredIndex(index);
+    }
+		if (cursorRef.current) {
+			const x = mousePosition.current.x - cursorRadius;
+			const y = mousePosition.current.y - cursorRadius;
+			cursorRef.current.style.left = `${x}px`;
+			cursorRef.current.style.top = `${y}px`;
+		}
+	};
+
+	const handleMouseEnter = (e: React.MouseEvent, index) => {
+		if (hoveredIndex !== index) {
+			setHoveredIndex(index);
+		}
+	
+		if (cursorRef.current) {
+			let x = e.clientX;
+			let y = e.clientY;
+			if (x === 0 && y === 0 && typeof window !== 'undefined' && (window as any).event) {
+				x = (window as any).event.clientX;
+				y = (window as any).event.clientY;
+			}
+	
+			const adjustedX = x - cursorRadius;
+			const adjustedY = y - cursorRadius;
+	
+			cursorRef.current.style.left = `${adjustedX}px`;
+			cursorRef.current.style.top = `${adjustedY}px`;
+			cursorRef.current.style.display = 'flex';
+	
+			gsap.fromTo(cursorRef.current, { scale: 0 }, { scale: 1, duration: 0.5, ease: 'power2.out' });
+		}
+	};
+	
+	const handleMouseLeave = (e: React.MouseEvent) => {
+		setHoveredIndex(null);
+		if (cursorRef.current) {
+			const x = e.clientX - cursorRadius;
+			const y = e.clientY - cursorRadius;
+			cursorRef.current.style.left = `${x}px`;
+			cursorRef.current.style.top = `${y}px`;
+
+			gsap.to(cursorRef.current, {
+				scale: 0,
+				duration: 0.2,
+				ease: 'power2.in',
+				onComplete: () => {
+					if (cursorRef.current && isDesktop) {
+						cursorRef.current.style.display = 'none';
+					}
+				},
+			});
+		}
+	};
+
 
 	return (
 		<section>
@@ -138,40 +228,51 @@ function ProjectsList() {
 							<div className="text-center mt-[20%">
 								No projects found for the selected capability.
 							</div>
-						) : (
-							filteredProjects.map((project) => (
-								<Link
-									key={project._id}
-									className="relative h-[180px] lg:h-[715px] opacity-100 starting:opacity-0 transition-opacity duration-300"
-									href={`/${process.env.NEXT_PUBLIC_PROJECTS_ROOT}/${project.slug?.current}`}
-								>
-									<div className="absolute inset-0 size-full">
-										<div className="p-5 text-base text-white relative z-50">
-											<h2 className="font-body font-bold text-sm md:text-base">
-												{project.title}
-											</h2>
-										</div>
-										<div className="absolute inset-0 size-full z-40">
-											{project.hero?.imageDesktop && (
-												<RenderImage
-													width={1320}
-													height={715}
-													image={project.hero?.imageDesktop}
-													alt={project.title}
-													fill={true}
-												/>
-											)}
-											{/* <video class="size-full object-cover" muted loop playsInline>
-												<source
-													src="https://player.vimeo.com/progressive_redirect/playback/1058997151/rendition/1080p/file.mp4?loc=external&amp;signature=aa468e03fef7f2777728b9104a0331257891406e444fd65af6dffc75dac40bdc&amp;user_id=229644862"
-													type="video/mp4"
-												/>
-												Your browser does not support the video tag.
-											</video> */}
-										</div>
+						) : (  
+						filteredProjects.map((project, i) => (
+							<Link
+								key={project._id}
+								className="relative h-[180px] lg:h-[715px] opacity-100 starting:opacity-0 transition-opacity cursor-none duration-300"
+								href={`/${process.env.NEXT_PUBLIC_PROJECTS_ROOT}/${project.slug?.current}`}
+								onMouseEnter={(e) => handleMouseEnter(e, i)}
+								onMouseLeave={(e) => handleMouseLeave(e)}
+								onMouseMove={(e) => handleMouseMove(e, i)}
+
+							>
+								<div className="absolute inset-0 size-full cursor-none">
+									<div className="p-5 text-base text-white relative z-50">
+										<h2 className="font-body font-bold text-sm md:text-base tracking-normal pointer-events-none">
+											{project.title}
+										</h2>
 									</div>
-								</Link>
+									<div className="absolute inset-0 size-full z-40">
+										{project.hero?.imageDesktop && (
+											<RenderImage
+												width={1320}
+												height={715}
+												image={project.hero?.imageDesktop}
+												alt={project.title}
+												fill={true}
+											/>
+										)}
+										<ImageVideoAssetComponent
+											autoPlay
+											loop
+											fill
+											playsInline
+											asset={project.previewVideo}
+											className={`inset-0 absolute aspect-video h-full w-full z-0 transition-opacity cursor-none duration-300 ${
+												hoveredIndex === i ? 'opacity-100' : 'opacity-0' // Show video only if the item is hovered
+											}`}
+										/>
+									</div>
+								</div>
+							</Link>
+							
 							))
+						)}
+						{isDesktop && (
+							<Cursor cursorDiameter={cursorDiameter} ref={cursorRef} text="View work" />
 						)}
 					</div>
 				)}
