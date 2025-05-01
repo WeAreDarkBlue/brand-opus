@@ -10,10 +10,10 @@
 	--color-foreground: var(--foreground);
 
 	--color-secondary: #ff530f;
+	--color-grey-500: rgb(118, 118, 118);
 
 	--font-body: var(--font-apercu);
 	--font-heading: var(--font-juana);
-
 
 	--text-9xl: 90px;
 	--text-8xl: 75px;
@@ -21,6 +21,7 @@
 	--text-7xl: 68px;
 	--text-6xl: 50px;
 	--text-5xl: 42px;
+	--text-4_5xl: 40px;
 	--text-4xl: 38px;
 	--text-3xl: 35px;
 	--text-2xl: 30px;
@@ -53,27 +54,30 @@
 }
 
 @keyframes fadeIn {
-	from { opacity: 0; }
-	to { opacity: 1; }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .animate-fadeIn {
 	animation: fadeIn 0.5s ease-in-out forwards;
 }
 
-
 .content-block-scrollingMarquee,
-.content-block-quoteCarousel, 
+.content-block-quoteCarousel,
 .content-block-hero,
 .content-block-imageCarousel {
-  .mx-auto {
-    .px-5 {
-    padding: 0 !important;
-  }
-  }
+	.mx-auto {
+		.px-5 {
+			padding: 0 !important;
+		}
+	}
 }
 
-.content-block-quoteCarousel{
+.content-block-quoteCarousel {
 	.splide__pagination {
 		bottom: -7rem;
 		display: flex;
@@ -105,7 +109,7 @@
 }
 .content-block-imageCarousel {
 	.splide__slide.is-active {
-		a{
+		a {
 			cursor: none;
 		}
 	}
@@ -115,6 +119,16 @@
 	p {
 		&:not(:last-child) {
 			@apply mb-4;
+		}
+	}
+
+	ul {
+		@apply list-disc list-inside pl-8;
+
+		li {
+			&:not(:last-child) {
+				@apply mb-[22px]
+			}
 		}
 	}
 }

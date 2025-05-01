@@ -6,6 +6,7 @@ import { draftMode } from "next/headers";
 
 import { client } from "@/sanity/lib/client";
 import {
+	careerBySlugQuery,
 	footerQuery,
 	homePageQuery,
 	newsBySlugQuery,
@@ -16,7 +17,6 @@ import {
 } from "@/sanity/lib/queries";
 import { token } from "@/sanity/lib/token";
 import type {
-	CareerPayload,
 	FooterPayload,
 	HomePagePayload,
 	NewsPayload,
@@ -29,7 +29,10 @@ import type {
 import { isNumeric } from "@/lib/utils";
 import axios from "axios";
 import { getTypeFromSlugs } from "../lib/utils";
-import type { PagesBySlugQueryResult } from "../../../sanity.types";
+import type {
+	CareerBySlugQueryResult,
+	PagesBySlugQueryResult,
+} from "../../../sanity.types";
 
 const serverClient = client.withConfig({
 	token,
@@ -131,39 +134,45 @@ export function loadPage(slug: string) {
 	);
 }
 
-export async function loadCareer(slug: string) {
-	const isTeamTailor = isNumeric(slug);
-	const apiUrl = isTeamTailor
-		? "/api/jobs/teamtailor/single"
-		: "/api/jobs/jobvite/single";
-
-	try {
-		const { data } = await axios.post(
-			`${process.env.NEXT_PUBLIC_BASE_URL}${apiUrl}`,
-			{
-				job_id: slug,
-			},
-		);
-
-		return data;
-	} catch (error) {
-		return null;
-	}
+export function loadCareer(slug: string) {
+	return loadQuery<CareerBySlugQueryResult | null>(
+		careerBySlugQuery,
+		{ slug },
+		{ next: { tags: [`career:${slug}`] } },
+	);
 }
+
+// export async function loadCareer(slug: string) {
+// 	const isTeamTailor = isNumeric(slug);
+// 	const apiUrl = isTeamTailor
+// 		? "/api/jobs/teamtailor/single"
+// 		: "/api/jobs/jobvite/single";
+
+// 	try {
+// 		const { data } = await axios.post(
+// 			`${process.env.NEXT_PUBLIC_BASE_URL}${apiUrl}`,
+// 			{
+// 				job_id: slug,
+// 			},
+// 		);
+
+// 		return data;
+// 	} catch (error) {
+// 		return null;
+// 	}
+// }
 
 export function loadDocument(
 	slugs: string[],
-): Promise<
-	| QueryResponseInitial<
-			| HomePagePayload
-			| PagePayload
-			| ProjectPayload
-			| NewsPayload
-			| OfficePayload
-			| null
-	  >
-	| CareerPayload
-> | null {
+): Promise<QueryResponseInitial<
+	| HomePagePayload
+	| PagePayload
+	| ProjectPayload
+	| NewsPayload
+	| OfficePayload
+	| CareerBySlugQueryResult
+	| null
+>> | null {
 	const type = getTypeFromSlugs(slugs);
 
 	switch (type) {

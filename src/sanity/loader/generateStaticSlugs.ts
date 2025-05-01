@@ -37,6 +37,9 @@ export async function generateStaticSlugs(type: string) {
 		if (type === "office" && process.env.NEXT_PUBLIC_OFFICES_ROOT) {
 			slugArray.unshift(process.env.NEXT_PUBLIC_OFFICES_ROOT);
 		}
+		if (type === "jobs" && process.env.NEXT_PUBLIC_CAREERS_ROOT) {
+			slugArray.unshift(process.env.NEXT_PUBLIC_CAREERS_ROOT);
+		}
 		return slugArray;
 	});
 }

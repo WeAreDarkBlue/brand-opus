@@ -2118,7 +2118,7 @@
           },
           "optional": true
         },
-        "projects": {
+        "jobs": {
           "type": "objectAttribute",
           "value": {
             "type": "array",
@@ -6877,6 +6877,13 @@
           "type": "string"
         }
       },
+      "role": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": false
+      },
       "slug": {
         "type": "objectAttribute",
         "value": {
@@ -6890,14 +6897,7 @@
         "value": {
           "type": "string"
         },
-        "optional": true
-      },
-      "role": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
+        "optional": false
       },
       "intro": {
         "type": "objectAttribute",

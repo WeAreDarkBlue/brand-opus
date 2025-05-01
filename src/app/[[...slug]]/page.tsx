@@ -6,18 +6,21 @@ import { notFound } from "next/navigation";
 
 import HomePage from "@/components/templates/home/HomePage";
 import NewsPage from "@/components/templates/news/NewsPage";
+import CareersPage from "@/components/templates/careers/CareersPage";
 import { Page } from "@/components/templates/page/Page";
 import ProjectPage from "@/components/templates/project/ProjectPage";
 import { studioUrl } from "@/sanity/lib/api";
 import { getTypeFromSlugs, urlForOpenGraphImage } from "@/sanity/lib/utils";
 import { generateStaticSlugs } from "@/sanity/loader/generateStaticSlugs";
 import {
+	loadCareer,
 	loadDocument,
 	loadHomePage,
 	loadNews,
 	loadPage,
 	loadProject,
 } from "@/sanity/loader/loadQuery";
+import { toPlainText } from "next-sanity";
 
 const PagePreview = dynamic(
 	() => import("@/components/templates/page/PagePreview"),
@@ -31,6 +34,9 @@ const ProjectPreview = dynamic(
 const NewsPreview = dynamic(
 	() => import("@/components/templates/news/NewsPreview"),
 );
+const CareersPreview = dynamic(
+	() => import("@/components/templates/careers/CareersPreview"),
+);
 
 type Props = {
 	params: { slug: string[] };
@@ -43,18 +49,10 @@ export async function generateMetadata(
 ): Promise<Metadata> {
 	const doc = await loadDocument(params.slug);
 
-	if (doc && "apply_url" in doc) {
+	if (doc && doc?.data._type === "jobs") {
 		return {
-			title: doc.title,
-			description: doc.body,
-			openGraph: {
-				images: [
-					{
-						url: doc.apply_url,
-						alt: doc.title,
-					},
-				],
-			},
+			title: doc.data.role,
+			description: toPlainText(doc.data.intro),
 		};
 	}
 
@@ -89,6 +87,7 @@ export async function generateStaticParams() {
 		generateStaticSlugs("page"),
 		generateStaticSlugs("project"),
 		generateStaticSlugs("newsPost"),
+		generateStaticSlugs("jobs"),
 	]);
 
 	return slugs
@@ -145,6 +144,15 @@ export default async function DocumentRoute({ params, searchParams }: Props) {
 				<NewsPreview params={{ slug: params.slug[1] }} initial={initial} />
 			) : initial?.data ? (
 				<NewsPage data={initial.data} country={country} />
+			) : (
+				notFound()
+			);
+		case "careers":
+			initial = await loadCareer(params.slug[1]);
+			return isEnabled ? (
+				<CareersPreview params={{ slug: params.slug[1] }} initial={initial} />
+			) : initial?.data ? (
+				<CareersPage data={initial.data} country={country} />
 			) : (
 				notFound()
 			);

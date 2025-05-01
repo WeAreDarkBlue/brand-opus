@@ -44,6 +44,10 @@ export function resolveHref(
 			return slug
 				? `/${process.env.NEXT_PUBLIC_PROJECTS_ROOT}/${slug}`
 				: undefined;
+		case "jobs":
+			return slug
+				? `/${process.env.NEXT_PUBLIC_CAREERS_ROOT}/${slug}`
+				: undefined;
 		case "newsPost":
 			return slug ? `/${process.env.NEXT_PUBLIC_NEWS_ROOT}/${slug}` : undefined;
 		case "office":
@@ -89,7 +93,7 @@ export function getTypeFromSlugs(slugs: string[] | undefined): string {
 	) {
 		return "office";
 	} else if (
-		slugs?.length === 3 &&
+		slugs?.length === 2 &&
 		slugs[0] === process.env.NEXT_PUBLIC_CAREERS_ROOT
 	) {
 		return "careers";

@@ -162,10 +162,13 @@ export const blocksStub = defineQuery(`
     _type == "projectsList" => {
       _type,
       _key,
-      "testing": "fuck you",
       projects[]-> {
         ...,
       }
+    },
+    _type == "jobList" => {
+      ...,
+      jobs[]->
     },
   }
 `);

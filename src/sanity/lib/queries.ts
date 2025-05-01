@@ -99,6 +99,18 @@ export const officeBySlugQuery = groq`
   }
 `;
 
+export const careerBySlugQuery = groq`
+  *[_type == "jobs" && slug.current == $slug][0] {
+    ...,
+    _id,
+    ${seoStub},
+    ${blocksStub},
+    "slug": slug.current,
+    themeColor,
+    navTheme,
+  }
+`;
+
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
     footer,

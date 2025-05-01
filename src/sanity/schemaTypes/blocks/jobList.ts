@@ -11,26 +11,26 @@ export default defineField({
 	icon: ProjectsIcon,
 	...blockGroups,
 	fields: [
-    defineField({
+		defineField({
 			group: "block",
 			title: "Eyebrow",
 			name: "eyebrow",
 			type: "text",
 			rows: 1,
 		}),
-    defineField({
+		defineField({
 			group: "block",
 			title: "Heading",
 			name: "heading",
 			type: "text",
 		}),
 		defineField({
-			title: "Projects",
-			name: "projects",
+			title: "Jobs",
+			name: "jobs",
 			type: "array",
 			of: [
 				{
-					name: "category",
+					name: "job",
 					type: "reference",
 					to: [{ type: "jobs" }],
 					options: {
@@ -54,5 +54,5 @@ export default defineField({
 				title: "Projects List",
 			};
 		},
-	},		
-})
+	},
+});
