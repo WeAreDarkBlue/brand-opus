@@ -42,7 +42,7 @@ export default function Capabilities({ data }: { data: CapabilitiesProps }) {
 				</div>
 
 				<div className="shrink-0">
-					<h4 className="mb-1 font-body font-medium">Capabilities</h4>
+					<p className="mb-1 font-body font-medium">Capabilities</p>
 					<div className="flex flex-col items-baseline gap-3">
 						{data.list?.map((capability, index) => (
 							<div

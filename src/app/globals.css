@@ -4,6 +4,54 @@
 :root {
 	--background: #ffffff;
 	--foreground: #171717;
+
+	--small-desktop-relative: 0.75;
+  --h1: 42px;
+  --h2: 34px;
+  --introduction: 42px;
+  --h3: 32px;
+  --h4: 30px;
+  --h5: 27px;
+  --h6: 25px;
+  --subtitle: 18px;
+  --body: 18px;
+  --bs-body-font-size: 18px;
+  --bs-btn-font-size: 18px;
+  --small: 16px;
+}
+
+@media (min-width: 992px) {
+  :root {
+    --h1: calc(90px * var(--small-desktop-relative));
+    --h2: calc(75px * var(--small-desktop-relative));
+    --introduction: calc(90px * var(--small-desktop-relative));
+    --h3: calc(60px * var(--small-desktop-relative));
+    --h4: calc(50px * var(--small-desktop-relative));
+    --h5: calc(40px * var(--small-desktop-relative));
+    --h6: calc(35px * var(--small-desktop-relative));
+    --subtitle: calc(22px * var(--small-desktop-relative));
+    --body: calc(22px * var(--small-desktop-relative));
+    --bs-body-font-size: calc(22px * var(--small-desktop-relative));
+    --bs-btn-font-size: calc(22px * var(--small-desktop-relative));
+    --small: calc(18px * var(--small-desktop-relative));
+  }
+}
+@media (min-width: 1700px) {
+  :root {
+    --small-desktop-relative: 1;
+    --h1: 90px;
+    --h2: 75px;
+    --introduction: 90px;
+    --h3: 60px;
+    --h4: 50px;
+    --h5: 40px;
+    --h6: 35px;
+    --subtitle: 22px;
+    --body: 22px;
+    --bs-body-font-size: 22px;
+    --bs-btn-font-size: 22px;
+    --small: 18px;
+  }
 }
 
 @theme {
@@ -41,6 +89,7 @@
 @layer base {
 	body {
 		@apply bg-background text-foreground font-body;
+		font-size: var(--body);
 	}
 
 	h1,
@@ -49,8 +98,32 @@
 	h4,
 	h5,
 	h6 {
-		@apply font-heading font-light;
+		@apply font-heading font-light leading-[1.2];
 		letter-spacing: 2px;
+	}
+
+	h1, .h1 {
+  	font-size: var(--h1);
+	}
+
+	h2, .h2 {
+		font-size: var(--h2);
+	}
+
+	h3, .h3 {
+		font-size: var(--h3);
+	}
+
+	h4, .h4 {
+		font-size: var(--h4);
+	}
+
+	h5, .h5 {
+		font-size: var(--h5);
+	}
+
+	h6, .h6 {
+		font-size: var(--h6);
 	}
 }
 

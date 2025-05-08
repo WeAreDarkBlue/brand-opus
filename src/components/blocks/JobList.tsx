@@ -4,6 +4,7 @@ import type {
 	JobList as JobListProps,
 	Jobs as JobProps,
 } from "../../../sanity.types";
+import { ChevronRight } from "lucide-react";
 
 interface BlockJobListProps {
 	data: JobListProps & {
@@ -17,9 +18,9 @@ const JobList = ({ data }: BlockJobListProps) => {
 			<h3 className="text-lg md:text-[40px] text-[#767676] mb-4 md:mb-6">
 				{data.eyebrow}
 			</h3>
-			<p className="font-heading font-light text-white text-[34px] leading-2xl lg:text-[56px] lg:leading-3xl xl:text-8xl xl:leading-4xl mb-10 md:mb-32">
+			<h2 className="font-heading font-light text-white mb-10 md:mb-32">
 				{data.heading}
-			</p>
+			</h2>
 			{data.jobs?.map((job: JobProps) => (
 				<Link
 					key={job._id}
@@ -27,19 +28,17 @@ const JobList = ({ data }: BlockJobListProps) => {
 					className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-1 md:mb-4 border-t-2 last-of-type:border-b-2 md:last-of-type:border-b-0 py-2 md:py-5 border-white/[0.2] group"
 				>
 					<div className="flex flex-row justify-between lg:grid lg:grid-cols-[200px_1fr_80px] items-center w-full">
-						<p className="text-sm md:text-md">{job.location}</p>
+						<p className="">{job.location}</p>
 						<h3 className="text-4xl text-left hidden lg:block">{job.role}</h3>
 						<div className="ml-auto">
-							<div className="flex flex-row items-center text-sm md:text-md">
-								<ArrowRight />
-								<span>Apply</span>
+							<div className="flex flex-row items-center">
+								<ChevronRight size={32} />
+								<span className="-ml-2">Apply</span>
 							</div>
 							<div className="bg-secondary h-[2px] w-0 group-hover:w-full transition-all duration-300" />
 						</div>
 					</div>
-					<h3 className="text-2xl text-left block lg:hidden mt-2">
-						{job.role}
-					</h3>
+					<h3 className="h4 text-left block lg:hidden mt-2">{job.role}</h3>
 				</Link>
 			))}
 		</div>

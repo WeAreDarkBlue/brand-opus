@@ -12,6 +12,7 @@ import ArrowRight from "@/components/common/ArrowRight";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Input } from "@/components/ui/input";
+import { ChevronRight } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 interface FooterProps {
@@ -152,13 +153,13 @@ export default function Footer({ data }: FooterProps) {
 											${activeIndex === i ? "text-secondary" : ""}`}
 									onMouseEnter={() => handleHover(i)}
 								>
-									<h3
-										className={`font-body lg:text-[68px] xl:text-[120px] xl:leading-[120px] transition-opacity duration-300 cursor-pointer ${
+									<h2
+										className={`font-body font-medium transition-opacity duration-300 cursor-pointer lg:text-[size:var(--h1)] ${
 											activeIndex === i ? "opacity-100" : "opacity-50"
 										}`}
 									>
 										{nav.title}
-									</h3>
+									</h2>
 								</li>
 							))}
 						</ul>
@@ -183,17 +184,17 @@ export default function Footer({ data }: FooterProps) {
 												target="_blank"
 												className="group"
 											>
-												<h3 className="font-body text-[22px] xl:text-[35px] font-bold tracking-normal">
+												<h3 className="font-body font-bold tracking-normal h6">
 													{contact.title}
 												</h3>
-												<span className="text-[17px] xl:text-[22px] font-bold group-hover:text-secondary">
+												<span className="font-bold group-hover:text-secondary">
 													{contact.email}
 												</span>
 											</a>
 										))}
 									</div>
 									<div className="col-span-1 text-center flex flex-col items-center justify-start py-6">
-										<h3 className="font-body text-[22px] xl:text-[35px] font-bold tracking-normal mb-4">
+										<h3 className="font-body h6 font-bold tracking-normal mb-4">
 											Follow Us
 										</h3>
 										{data.socialLinks.map((link, idx) => (
@@ -204,17 +205,15 @@ export default function Footer({ data }: FooterProps) {
 												target="_blank"
 											>
 												<div className="flex flex-row items-center">
-													<ArrowRight />
-													<span className="text-[17px] xl:text-[22px] font-bold">
-														{link.socialType}
-													</span>
+													<ChevronRight />
+													<span className="font-bold">{link.socialType}</span>
 												</div>
 												<div className="bg-secondary h-[2px] w-0 group-hover:w-full transition-all duration-300"></div>
 											</a>
 										))}
 									</div>
 									<div className="col-span-1 text-center flex flex-col items-center justify-center py-6">
-										<h3 className="font-body text-[22px] xl:text-[35px] font-bold tracking-normal mb-10">
+										<h3 className="font-body h6 font-bold tracking-normal mb-10">
 											Stay Up to Date
 										</h3>
 
@@ -239,7 +238,7 @@ export default function Footer({ data }: FooterProps) {
 											key={idx}
 											className="col-span-1 text-center flex flex-col items-center"
 										>
-											<h3 className="font-body text-[28px] xl:text-[35px] font-bold tracking-normal">
+											<h3 className="font-body h6 font-bold tracking-normal mb-2">
 												{city.city}
 											</h3>
 											{city.address && (
@@ -248,17 +247,14 @@ export default function Footer({ data }: FooterProps) {
 													target="_blank"
 													className="hover:cursor-pointer"
 												>
-													<div className="text-[17px] xl:text-[22px] px-10 xl:px-24 mb-5">
+													<div className="px-10 xl:px-24 mb-5">
 														<RichText content={city.address} />
 													</div>
 												</Link>
 											)}
 
 											<div className="flex flex-col items-start group">
-												<a
-													className="text-[17px] xl:text-[22px]"
-													href={`tel:${city.phone}`}
-												>
+												<a className="" href={`tel:${city.phone}`}>
 													{city.phone}
 												</a>
 												<div className="bg-secondary h-[2px] w-0 group-hover:w-full transition-all duration-300"></div>
@@ -285,8 +281,8 @@ export default function Footer({ data }: FooterProps) {
 												className="hover:cursor-pointer lowercase group"
 											>
 												<div className="flex flex-row items-center">
-													<ArrowRight />
-													<h3 className="font-body text-[28px] xl:text-[35px] font-bold tracking-normal capitalize">
+													<ChevronRight size={36} />
+													<h3 className="font-body h6 font-bold tracking-normal capitalize">
 														{item}
 													</h3>
 												</div>

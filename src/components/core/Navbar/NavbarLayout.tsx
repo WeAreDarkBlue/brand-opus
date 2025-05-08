@@ -169,17 +169,14 @@ export default function Navbar({ data }: NavbarProps) {
 									<li key={menuItem._key} className="">
 										<SanityLink
 											link={"../" + menuItem.slug}
-											className="text-[17px] xl:text-[22px] font-bold"
+											className="font-bold"
 										>
 											{menuItem.title}
 										</SanityLink>
 									</li>
 								);
 							})}
-							<li
-								className="text-[17px] xl:text-[22px] font-bold cursor-pointer"
-								onClick={scrollToBtm}
-							>
+							<li className="font-bold cursor-pointer" onClick={scrollToBtm}>
 								Contact
 							</li>
 						</ul>

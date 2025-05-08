@@ -1,3 +1,6 @@
+"use client";
+import { usePathname } from "next/navigation";
+
 // Define or import the BlockIntroTextProps type
 interface BlockIntroTextProps {
 	data: {
@@ -8,18 +11,20 @@ interface BlockIntroTextProps {
 }
 
 const IntroText = ({ data }: BlockIntroTextProps) => {
+	const pathname = usePathname();
+	const isHomepage = pathname === "/";
 	return (
-		<div className="container mx-auto xl:max-w-[1320px] text-[42px] md:text-[68px] lg:text-[67px] xl:text-[90px] leading-[51px] md:leading-[80px] lg:leading-[1.2] xl:leading-[108px] py-5 md:py-10 md:px-5">
-			<p
-				className={`font-heading font-light ${data.dark ? "text-black" : "text-white"}`}
+		<div className="container mx-auto xl:max-w-[1320px] py-5 md:py-10 md:px-5">
+			<h2
+				className={`font-heading font-light ${isHomepage ? "text-[size:var(--introduction)]" : "h2"} leading-[1.2] ${data.dark ? "text-black" : "text-white"}`}
 			>
 				{data.heading}
-			</p>
-			<p
-				className={`font-heading font-light leading-[52px] md:leading-[1.1] ${data.dark ? "text-black/40" : "text-white/40"}`}
+			</h2>
+			<h2
+				className={`font-heading font-light ${isHomepage ? "text-[size:var(--introduction)]" : "h2"} leading-[1.2] ${data.dark ? "text-black/40" : "text-white/40"}`}
 			>
 				{data.subHeading}
-			</p>
+			</h2>
 		</div>
 	);
 };
